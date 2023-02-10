@@ -32,4 +32,9 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.AuthScreen" parent="MainAppTheme">
+        <item name="android:statusBarColor">@color/background_color</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
 </resources>

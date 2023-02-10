@@ -3,6 +3,8 @@ package com.riopermana.story.data.remote
 import com.riopermana.story.model.ApiResponse
 import com.riopermana.story.model.StoriesResponse
 import com.riopermana.story.ui.auth.login.LoginResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,4 +27,12 @@ interface StoryApi {
 
     @GET("v1/stories")
     suspend fun getAllStory(@Header("Authorization") authorization:String) : Response<StoriesResponse>
+
+    @Multipart
+    @POST("v1/stories")
+    suspend fun uploadFile(
+        @Part("description") description: RequestBody,
+        @Part file: MultipartBody.Part,
+        @Header("Authorization") authorization: String
+    ): Response<ApiResponse>
 }

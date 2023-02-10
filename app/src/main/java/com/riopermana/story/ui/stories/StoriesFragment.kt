@@ -87,7 +87,7 @@ class StoriesFragment : Fragment() {
         }
 
         viewModel.stories.observe(viewLifecycleOwner) {
-            val sortedList = it.sortedBy { story ->
+            val sortedList = it.sortedByDescending { story ->
                 formatter.parse(story.createdAt)
             }
             adapter.submitList(sortedList)

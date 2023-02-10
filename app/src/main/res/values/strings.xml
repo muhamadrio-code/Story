@@ -5,13 +5,16 @@
   <string name="name_hint">Name</string>
   <string name="invalid_password">Password must be > 8 characters</string>
   <string name="invalid_email_message">Invalid Email address</string>
-  <!-- Strings related to login -->
+
   <string name="action_log_in">Log in</string>
   <string name="action_register">Register</string>
   <string name="sign_up_failed">Sign up failed, try again later</string>
   <string name="sign_in_failed">Sign in failed, try again later</string>
   <string name="connection_failed">Failed connect to server</string>
   <string name="no_data">No data</string>
+  <string name="upload_failed">Upload failed</string>
+  <string name="upload_success">Upload success</string>
+  <string name="upload_warning">Please add an Image before continue</string>
   <string name="user_not_found">Incorrect password or user not found</string>
   <string name="sign_in_warn">Please input a valid email and password</string>
   <string name="welcome_text">Welcome to story</string>
