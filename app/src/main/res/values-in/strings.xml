@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="password_hint">Kata sandi</string>
+  <string name="name_hint">Nama</string>
+  <string name="invalid_password">Kata sandi tidak boleh kurang dari 8 karakter</string>
+  <string name="invalid_email_message">Email tidak valid</string>
+  <string name="action_log_in">Masuk</string>
+  <string name="welcome_text">Selamat Datang,\nMasuk untuk melanjutkan</string>
+</resources>

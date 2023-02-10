@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.Button" parent="Widget.MaterialComponents.Button">
+    <item name="android:minHeight">56dp</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
+
+  <style name="Theme.Button.Login" parent="Theme.Button">
+    <item name="backgroundTint">#3e352e</item>
+    <item name="android:minHeight">56dp</item>
+    <item name="android:text">@string/action_log_in</item>
+  </style>
+
+  <style name="Theme.Button.Register" parent="Theme.Button">
+    <item name="backgroundTint">?attr/colorPrimary</item>
+    <item name="android:text">@string/action_register</item>
+  </style>
+</resources>

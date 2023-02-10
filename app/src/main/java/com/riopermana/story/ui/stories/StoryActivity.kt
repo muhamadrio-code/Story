@@ -1,9 +1,10 @@
-package com.riopermana.story
+package com.riopermana.story.ui.stories
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.riopermana.story.R
 
-class MainActivity : AppCompatActivity() {
+class StoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

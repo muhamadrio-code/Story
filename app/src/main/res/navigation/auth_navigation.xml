@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/auth_navigation"
+  xmlns:tools="http://schemas.android.com/tools"
+  app:startDestination="@id/authDashboardFragment">
+
+  <fragment
+    android:id="@+id/authDashboardFragment"
+    android:name="com.riopermana.story.ui.auth.AuthDashboardFragment"
+    android:label="AuthDashboardFragment"
+    tools:layout="@layout/fragment_auth_dashboard"
+    >
+    <argument
+      android:name="user"
+      app:argType="com.riopermana.story.model.User"
+      app:nullable="true"
+      android:defaultValue="@null" />
+  </fragment>
+  <fragment
+    android:id="@+id/loginFragment"
+    android:name="com.riopermana.story.ui.auth.login.LoginFragment"
+    android:label="LoginFragment"
+    tools:layout="@layout/fragment_login"
+    />
+
+  <fragment
+    android:id="@+id/registerFragment"
+    android:name="com.riopermana.story.ui.auth.register.RegisterFragment"
+    android:label="LoginFragment"
+    tools:layout="@layout/fragment_register"
+    >
+    <action
+      android:id="@+id/action_registerFragment_to_authDashboardFragment"
+      app:destination="@id/authDashboardFragment" />
+  </fragment>
+</navigation>

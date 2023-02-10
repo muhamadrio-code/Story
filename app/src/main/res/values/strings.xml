@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">WriteIt</string>
+  <string name="app_name" translatable="false">Story</string>
+  <string name="email_hint" translatable="false">Email</string>
+  <string name="password_hint">Password</string>
+  <string name="name_hint">Name</string>
+  <string name="invalid_password">Password must be > 8 characters</string>
+  <string name="invalid_email_message">Invalid Email address</string>
+  <!-- Strings related to login -->
+  <string name="action_log_in">Log in</string>
+  <string name="action_register">Register</string>
+  <string name="sign_up_failed">Sign up failed, try again later</string>
+  <string name="sign_in_failed">Sign in failed, try again later</string>
+  <string name="user_not_found">Incorrect password or user not found</string>
+  <string name="sign_in_warn">Please input a valid email and password</string>
+  <string name="welcome_text">Welcome to story</string>
+  <string name="welcome_text_2">Let the story begin</string>
+  <string name="required_information">required information</string>
+  <string name="account_information">account information</string>
+  <string name="welcome_back">Welcome back</string>
+  <string name="long_time_no_see">Long time no see!</string>
 </resources>
