@@ -25,5 +25,4 @@ interface StoryApi {
 
     @GET("v1/stories")
     suspend fun getAllStory(@Header("Authorization") authorization:String) : Response<StoriesResponse>
-
 }

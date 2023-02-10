@@ -1,7 +1,10 @@
 package com.riopermana.story.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Story(
     @field:SerializedName("createdAt")
     val createdAt: String,
@@ -23,4 +26,4 @@ data class Story(
 
     @field:SerializedName("photoUrl")
     val photoUrl: String
-)
+) : Parcelable

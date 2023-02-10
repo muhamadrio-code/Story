@@ -1,9 +1,13 @@
 package com.riopermana.story.ui.auth
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.riopermana.story.R
@@ -19,6 +23,7 @@ class AuthDashboardFragment : BaseAuthFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.background_color)
         binding = FragmentAuthDashboardBinding.inflate(inflater, container, false)
         val user = userArgs.user
         user?.let {

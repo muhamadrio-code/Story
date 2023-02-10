@@ -38,7 +38,6 @@ abstract class BaseAuthFragment : Fragment() {
                 is UiState.OnLoading -> showLoading()
                 is UiState.OnPostLoading -> {
                     hideLoading()
-                    navigateToStoriesFragment()
                 }
             }
         }

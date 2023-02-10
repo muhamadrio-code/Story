@@ -2,11 +2,13 @@ package com.riopermana.story.ui.stories
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +20,8 @@ import com.riopermana.story.databinding.FragmentStoriesBinding
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import com.riopermana.story.ui.utils.UiState
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class StoriesFragment : Fragment() {
@@ -25,6 +29,9 @@ class StoriesFragment : Fragment() {
     private lateinit var binding: FragmentStoriesBinding
     private val viewModel: StoriesViewModel by viewModels()
     private lateinit var adapter: StoryRecyclerViewAdapter
+    private val formatter: SimpleDateFormat by lazy {
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +61,7 @@ class StoriesFragment : Fragment() {
                         .setNegativeButton(R.string.cancel) { dialog, _ ->
                             dialog.dismiss()
                         }
-                        .setPositiveButton(R.string.action_logout){ _, _ ->
+                        .setPositiveButton(R.string.action_logout) { _, _ ->
                             lifecycleScope.launch {
                                 DataStoreUtil.clearSession(requireContext())
                             }
@@ -74,17 +81,20 @@ class StoriesFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             DataStoreUtil.getCurrentSession(requireContext()) { token ->
                 token?.let {
-//                    viewModel.getStories(token)
+                    viewModel.getStories(token)
                 }
             }
         }
 
         viewModel.stories.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            val sortedList = it.sortedBy { story ->
+                formatter.parse(story.createdAt)
+            }
+            adapter.submitList(sortedList)
         }
 
-        viewModel.uiState.observe(viewLifecycleOwner) {uiState ->
-            when(uiState) {
+        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
                 is UiState.OnError -> {
                     hideLoading()
                     showError(uiState.message)
@@ -108,7 +118,7 @@ class StoriesFragment : Fragment() {
     }
 
     private fun showLoading() {
-        binding.loadingIndicator.visibility = View.GONE
+        binding.loadingIndicator.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
@@ -118,6 +128,10 @@ class StoriesFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = StoryRecyclerViewAdapter()
         binding.storyRecyclerView.adapter = adapter
+        adapter.setOnItemClickListener {
+            val action = StoriesFragmentDirections.actionStoriesFragmentToStoryDetailsFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
 }

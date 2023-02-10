@@ -13,9 +13,21 @@
     <action
       android:id="@+id/action_storiesFragment_to_newStoryFragment"
       app:destination="@id/newStoryFragment" />
+    <action
+      android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
+      app:destination="@id/storyDetailsFragment" />
   </fragment>
   <fragment
     android:id="@+id/newStoryFragment"
     android:name="com.riopermana.story.ui.stories.NewStoryFragment"
     android:label="NewStoryFragment" />
+  <fragment
+    android:id="@+id/storyDetailsFragment"
+    android:name="com.riopermana.story.ui.stories.StoryDetailsFragment"
+    android:label="fragment_story_details"
+    tools:layout="@layout/fragment_story_details" >
+    <argument
+      android:name="story"
+      app:argType="com.riopermana.story.model.Story" />
+  </fragment>
 </navigation>

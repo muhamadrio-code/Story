@@ -1,4 +1,4 @@
-package com.riopermana.story.model.login
+package com.riopermana.story.model.auth
 
 sealed class Result {
 

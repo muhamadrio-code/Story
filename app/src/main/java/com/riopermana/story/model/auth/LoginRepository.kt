@@ -1,4 +1,4 @@
-package com.riopermana.story.model.login
+package com.riopermana.story.model.auth
 
 /**
  * Class that requests authentication and user information from the remote data source and
