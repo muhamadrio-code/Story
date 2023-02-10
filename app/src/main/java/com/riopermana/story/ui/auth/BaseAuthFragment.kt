@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.riopermana.story.R
 import com.riopermana.story.data.local.DataStoreUtil
 import com.riopermana.story.ui.utils.ErrorMessageRes
@@ -48,7 +49,7 @@ abstract class BaseAuthFragment : Fragment() {
     }
 
     private fun navigateToStoriesFragment() {
-
+        findNavController().navigate(R.id.storiesFragment)
     }
 
     private fun showError(messageRes: ErrorMessageRes) {
@@ -63,7 +64,7 @@ abstract class BaseAuthFragment : Fragment() {
 
         if (!loginResponse.error) {
             lifecycleScope.launch {
-                DataStoreUtil.saveSession(requireContext(), loginResponse.loginResult!!.token)
+                DataStoreUtil.saveToken(requireContext(), loginResponse.loginResult!!.token)
                 withContext(Dispatchers.Main.immediate) {
                     viewModel.requestUpdateUIState()
                 }

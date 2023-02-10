@@ -30,8 +30,8 @@ class LoginFragment : BaseAuthFragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.emailTextField.text.toString()
-            val password = binding.passwordTextField.text.toString()
+            val email = binding.edLoginEmail.text.toString()
+            val password = binding.edLoginPassword.text.toString()
             val isEmailValid = !binding.emailFieldLayout.isErrorEnabled && email.isNotEmpty()
             val isPasswordValid =
                 !binding.passwordFieldLayout.isErrorEnabled && password.isNotEmpty()

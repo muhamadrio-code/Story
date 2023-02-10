@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.riopermana.story.R
 import com.riopermana.story.databinding.FragmentAuthDashboardBinding
-import com.riopermana.story.model.User
-import com.riopermana.story.ui.auth.BaseAuthFragment.Companion.PARCEL_USER
 
 class AuthDashboardFragment : BaseAuthFragment() {
 

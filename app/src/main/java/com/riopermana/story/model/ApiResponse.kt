@@ -1,8 +1,8 @@
-package com.riopermana.story.model.register
+package com.riopermana.story.model
 
 import com.google.gson.annotations.SerializedName
 
-data class SignUpResponse(
+data class ApiResponse(
     @field:SerializedName("error")
     val isError: Boolean,
 

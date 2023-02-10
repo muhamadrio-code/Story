@@ -1,11 +1,10 @@
 package com.riopermana.story.data.remote
 
-import com.riopermana.story.model.register.SignUpResponse
+import com.riopermana.story.model.ApiResponse
+import com.riopermana.story.model.StoriesResponse
 import com.riopermana.story.ui.auth.login.LoginResponse
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface StoryApi {
 
@@ -15,7 +14,7 @@ interface StoryApi {
         @Field("name") name:String,
         @Field("email") email:String,
         @Field("password") password: String
-    ) : Response<SignUpResponse>
+    ) : Response<ApiResponse>
 
     @POST("v1/login")
     @FormUrlEncoded
@@ -23,5 +22,8 @@ interface StoryApi {
         @Field("email") email:String,
         @Field("password") password: String
     ) : Response<LoginResponse>
+
+    @GET("v1/stories")
+    suspend fun getAllStory(@Header("Authorization") authorization:String) : Response<StoriesResponse>
 
 }

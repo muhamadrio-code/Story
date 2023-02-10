@@ -9,7 +9,7 @@
 
   <com.google.android.material.appbar.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/actionBarSize"
     android:backgroundTint="?attr/colorSurface"
     app:elevation="0dp">
 
@@ -62,7 +62,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.riopermana.story.ui.view.MyEditText
-          android:id="@+id/name_text_field"
+          android:id="@+id/ed_register_name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           />
@@ -80,7 +80,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.riopermana.story.ui.view.MyEditText
-          android:id="@+id/email_text_field"
+          android:id="@+id/ed_register_email"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="textEmailAddress" />
@@ -98,7 +98,7 @@
         app:boxStrokeWidth="0dp">
 
         <com.riopermana.story.ui.view.MyEditText
-          android:id="@+id/password_text_field"
+          android:id="@+id/ed_register_password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="textPassword" />

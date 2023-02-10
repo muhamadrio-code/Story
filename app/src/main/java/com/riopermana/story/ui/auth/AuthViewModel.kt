@@ -8,6 +8,7 @@ import com.riopermana.story.model.User
 import com.riopermana.story.ui.BaseViewModel
 import com.riopermana.story.ui.auth.login.LoginResponse
 import com.riopermana.story.ui.auth.login.LoginResult
+import com.riopermana.story.ui.utils.DUMMY_TOKEN
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,7 @@ class AuthViewModel : BaseViewModel() {
         viewModelScope.launch {
             delay(1000L)
             _loginResponse.postValue(LoginResponse(
-                error = false, message = "", LoginResult("","","")
+                error = false, message = "", LoginResult("","", DUMMY_TOKEN)
             ))
             requestPostLoadingStateAsync()
 //            val response = runCatching {

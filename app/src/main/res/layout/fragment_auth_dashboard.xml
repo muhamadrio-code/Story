@@ -19,7 +19,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.815"
-    app:tint="?attr/colorOnPrimary"
+    app:tint="@color/md_theme_light_onPrimary"
     tools:ignore="ContentDescription" />
 
   <ImageView
@@ -44,7 +44,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/welcome_text"
-    android:textColor="?attr/colorOnPrimary"
+    android:textColor="@color/md_theme_light_onPrimary"
     android:textStyle="bold"
     android:textAlignment="center"
     app:layout_constraintBottom_toTopOf="@+id/btn_register"
@@ -59,7 +59,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/welcome_text_2"
-    android:textColor="?attr/colorOnPrimary"
+    android:textColor="@color/md_theme_light_onPrimary"
     android:textStyle="italic"
     android:textAlignment="center"
     app:layout_constraintEnd_toEndOf="parent"
