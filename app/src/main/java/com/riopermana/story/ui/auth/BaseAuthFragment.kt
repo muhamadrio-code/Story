@@ -5,13 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.riopermana.story.R
 import com.riopermana.story.data.local.DataStoreUtil
+import com.riopermana.story.ui.auth.login.LoginResponse
+import com.riopermana.story.ui.dialogs.LoadingDialog
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import com.riopermana.story.ui.utils.UiState
-import com.riopermana.story.ui.dialogs.LoadingDialog
-import com.riopermana.story.ui.auth.login.LoginResponse
 import com.riopermana.story.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,13 +41,9 @@ abstract class BaseAuthFragment : Fragment() {
             }
         }
 
-        viewModel.loginResponse.observe(viewLifecycleOwner) { loginRespose ->
-            handleLoginResponse(loginRespose)
+        viewModel.loginResponse.observe(viewLifecycleOwner) { loginResponse ->
+            handleLoginResponse(loginResponse)
         }
-    }
-
-    private fun navigateToStoriesFragment() {
-        findNavController().navigate(R.id.storiesFragment)
     }
 
     private fun showError(messageRes: ErrorMessageRes) {

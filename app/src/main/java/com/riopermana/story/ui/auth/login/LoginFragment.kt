@@ -1,5 +1,7 @@
 package com.riopermana.story.ui.auth.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +22,20 @@ class LoginFragment : BaseAuthFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        playAnimation()
         setupListener()
         return binding.root
+    }
+
+    private fun playAnimation() {
+        val loginBtn = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(400)
+        val email = ObjectAnimator.ofFloat(binding.emailFieldLayout, View.ALPHA, 1f).setDuration(300)
+        val password = ObjectAnimator.ofFloat(binding.passwordFieldLayout, View.ALPHA, 1f).setDuration(350)
+
+        AnimatorSet().apply {
+            playTogether(email,password,loginBtn)
+            start()
+        }
     }
 
     private fun setupListener() {

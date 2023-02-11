@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.riopermana.story.databinding.FragmentStoriesBinding
 import com.riopermana.story.databinding.FragmentStoryDetailsBinding
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import com.riopermana.story.ui.utils.UiState

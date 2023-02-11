@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/email_hint"
+        android:alpha="0"
         app:boxCornerRadiusBottomEnd="5dp"
         app:boxCornerRadiusBottomStart="5dp"
         app:boxStrokeWidth="0dp">
@@ -83,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/password_hint"
+        android:alpha="0"
         app:boxCornerRadiusBottomEnd="5dp"
         app:boxCornerRadiusBottomStart="5dp"
         app:boxStrokeWidth="0dp">
@@ -101,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:minHeight="56dp"
+        android:alpha="0"
         android:text="@string/action_log_in"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"

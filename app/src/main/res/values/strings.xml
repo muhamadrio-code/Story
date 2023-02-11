@@ -8,7 +8,7 @@
 
   <string name="action_log_in">Log in</string>
   <string name="action_register">Register</string>
-  <string name="sign_up_failed">Sign up failed, try again later</string>
+  <string name="sign_up_failed">Register failed, try again later</string>
   <string name="sign_in_failed">Sign in failed, try again later</string>
   <string name="connection_failed">Failed connect to server</string>
   <string name="no_data">No data</string>
@@ -24,6 +24,7 @@
   <string name="welcome_back">Welcome back</string>
   <string name="long_time_no_see">Long time no see!</string>
   <string name="add_new_story">add new story</string>
+  <string name="camera_permission_denied">Camera permission has been denied</string>
 
   <string name="language_key">Language</string>
   <string name="language_summary">Select language</string>
@@ -32,7 +33,7 @@
   <string name="logout_success_message">Log out success</string>
   <string name="description">Add description....</string>
   <string name="content_desc_back">back</string>
-  <string name="action_post">Post</string>
+  <string name="action_upload">Upload</string>
   <string name="gallery">gallery</string>
   <string name="open_camera">open camera</string>
   <string name="description_prompt">Description</string>

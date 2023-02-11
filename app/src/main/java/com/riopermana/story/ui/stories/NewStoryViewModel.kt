@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.riopermana.story.R
 import com.riopermana.story.data.remote.Retrofit
-import com.riopermana.story.model.ApiResponse
-import com.riopermana.story.model.Story
 import com.riopermana.story.ui.BaseViewModel
-import com.riopermana.story.ui.utils.DUMMY_TOKEN
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,14 +28,14 @@ class NewStoryViewModel : BaseViewModel() {
     private val _observableUri = MutableLiveData<Uri?>(null)
     val observableUri : LiveData<Uri?> =_observableUri
 
-    fun uploadFile(file: MultipartBody.Part, description: RequestBody) {
+    fun uploadFile(file: MultipartBody.Part, description: RequestBody, auth:String) {
         requestLoadingState()
         viewModelScope.launch {
             val response = runCatching {
                 storyApi.uploadFile(
                     description = description,
                     file = file,
-                    authorization = "Bearer $DUMMY_TOKEN"
+                    authorization = "Bearer $auth"
                 )
             }.getOrNull()
 

@@ -13,13 +13,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.riopermana.story.R
+import com.riopermana.story.data.local.PreferencesKeys
+import com.riopermana.story.data.local.sessionDataStore
 import com.riopermana.story.databinding.FragmentNewStoryBinding
 import com.riopermana.story.ui.dialogs.LoadingDialog
 import com.riopermana.story.ui.utils.*
 import com.riopermana.story.utils.showToast
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -92,7 +97,9 @@ class NewStoryFragment : Fragment() {
 
         viewModel.observableUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
-                binding.ivStoryImage.load(uri)
+                binding.ivStoryImage.load(uri) {
+                    placeholder(R.drawable.ic_image)
+                }
             }
         }
     }
@@ -128,7 +135,7 @@ class NewStoryFragment : Fragment() {
         if (isGranted) {
             openCamera()
         } else {
-            requireContext().showToast("Camera permission has been denied")
+            requireContext().showToast(R.string.camera_permission_denied)
         }
     }
 
@@ -169,15 +176,19 @@ class NewStoryFragment : Fragment() {
         viewModel.currentUri?.let { uri ->
             val file = reduceFileImage(uriToFile(uri, requireContext()))
             val description =
-                "Ini adalah deksripsi gambar".toRequestBody("text/plain".toMediaType())
+                binding.edDescription.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
                 file.name,
                 requestImageFile
             )
-
-            viewModel.uploadFile(imageMultipart, description)
+            lifecycleScope.launch {
+                val auth = requireContext().sessionDataStore.data.firstOrNull()?.get(PreferencesKeys.TOKEN_KEY)
+                auth?.let {
+                    viewModel.uploadFile(imageMultipart, description, auth)
+                }
+            }
         }
     }
 

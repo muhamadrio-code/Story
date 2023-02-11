@@ -7,7 +7,6 @@ import com.riopermana.story.R
 import com.riopermana.story.data.remote.Retrofit
 import com.riopermana.story.model.Story
 import com.riopermana.story.ui.BaseViewModel
-import com.riopermana.story.ui.utils.DUMMY_TOKEN
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class StoriesViewModel : BaseViewModel() {
         requestLoadingState()
         viewModelScope.launch {
             val response = runCatching {
-                storyApi.getAllStory("Bearer $DUMMY_TOKEN")
+                storyApi.getAllStory("Bearer $authorization")
             }.getOrNull()
 
             response ?: run {
