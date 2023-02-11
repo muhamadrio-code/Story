@@ -10,8 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.riopermana.story.databinding.FragmentStoryDetailsBinding
-import com.riopermana.story.ui.utils.ErrorMessageRes
-import com.riopermana.story.ui.utils.UiState
 
 class StoryDetailsFragment : Fragment() {
 
@@ -46,32 +44,6 @@ class StoryDetailsFragment : Fragment() {
             binding.tvDetailName.text = story.name
             binding.tvDetailDescription.text = story.description
         }
-
-        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            when (uiState) {
-                is UiState.OnError -> {
-                    hideLoading()
-                    showError(uiState.message)
-                }
-                is UiState.OnLoading -> {
-                    showError(null)
-                    showLoading()
-                }
-                is UiState.OnPostLoading -> {
-                    hideLoading()
-                }
-            }
-        }
-    }
-
-    private fun showError(errorMessageRes: ErrorMessageRes?) {
-
-    }
-
-    private fun showLoading() {
-    }
-
-    private fun hideLoading() {
     }
 
 }
