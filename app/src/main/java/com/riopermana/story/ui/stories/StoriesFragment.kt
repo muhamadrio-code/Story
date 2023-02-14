@@ -101,10 +101,12 @@ class StoriesFragment : Fragment() {
                 }
                 is UiState.OnLoading -> {
                     showError(null)
+                    showRecyclerView(false)
                     showLoading()
                 }
                 is UiState.OnPostLoading -> {
                     hideLoading()
+                    showRecyclerView(true)
                 }
             }
         }
@@ -123,6 +125,10 @@ class StoriesFragment : Fragment() {
 
     private fun hideLoading() {
         binding.loadingIndicator.visibility = View.GONE
+    }
+
+    private fun showRecyclerView(isVisible: Boolean) {
+        binding.storyRecyclerView.isVisible = isVisible
     }
 
     private fun setupRecyclerView() {
