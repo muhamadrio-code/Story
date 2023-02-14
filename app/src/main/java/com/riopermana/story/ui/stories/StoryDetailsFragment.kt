@@ -42,9 +42,11 @@ class StoryDetailsFragment : Fragment() {
 
     private fun subscribeObserver() {
         viewModel.observableStory.observe(viewLifecycleOwner) { story ->
-            binding.ivDetailPhoto.load(story.photoUrl)
-            binding.tvDetailName.text = story.name
-            binding.tvDetailDescription.text = story.description
+            binding.apply {
+                ivDetailPhoto.load(story.photoUrl)
+                tvDetailName.text = story.name
+                tvDetailDescription.text = story.description
+            }
         }
     }
 

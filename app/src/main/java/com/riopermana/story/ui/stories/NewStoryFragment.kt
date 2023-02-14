@@ -72,20 +72,22 @@ class NewStoryFragment : Fragment() {
 
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest)
-        val client = LocationServices.getSettingsClient(requireActivity())
-        client.checkLocationSettings(builder.build())
-            .addOnSuccessListener {
-                getMyLastLocation()
-            }
-            .addOnFailureListener { exception ->
-                if (exception is ResolvableApiException) {
-                    runCatching {
-                        resolutionLauncher.launch(
-                            IntentSenderRequest.Builder(exception.resolution).build()
-                        )
+
+        LocationServices.getSettingsClient(requireActivity()).apply {
+            checkLocationSettings(builder.build())
+                .addOnSuccessListener {
+                    getMyLastLocation()
+                }
+                .addOnFailureListener { exception ->
+                    if (exception is ResolvableApiException) {
+                        runCatching {
+                            resolutionLauncher.launch(
+                                IntentSenderRequest.Builder(exception.resolution).build()
+                            )
+                        }
                     }
                 }
-            }
+        }
     }
 
     private val resolutionLauncher =
@@ -111,82 +113,90 @@ class NewStoryFragment : Fragment() {
     }
 
     private fun setupListener() {
-        binding.addImageGallery.setOnClickListener {
-            startGallery()
-        }
-        binding.openCamera.setOnClickListener {
-            checkCameraPermissionOrOpenCamera()
-        }
-        binding.toggleLocation.setOnCheckedChangeListener { _, isChecked ->
-            lifecycleScope.launch {
-                DataStoreUtil.savePrefSettings(
-                    requireContext(),
-                    PreferencesKeys.LOCATION_TOGGLE,
-                    isChecked
-                )
+        binding.apply {
+            addImageGallery.setOnClickListener {
+                startGallery()
             }
 
-            if (isChecked) {
-                requestPermissionLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+            openCamera.setOnClickListener {
+                checkCameraPermissionOrOpenCamera()
+            }
+
+            toggleLocation.setOnCheckedChangeListener { _, isChecked ->
+                lifecycleScope.launch {
+                    DataStoreUtil.savePrefSettings(
+                        requireContext(),
+                        PreferencesKeys.LOCATION_TOGGLE,
+                        isChecked
                     )
-                )
-            } else {
-                viewModel.setLastLocation(null)
+                }
+
+                if (isChecked) {
+                    requestPermissionLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        )
+                    )
+                } else {
+                    viewModel.setLastLocation(null)
+                }
             }
-        }
-        binding.buttonAdd.setOnClickListener {
-            if (viewModel.currentUri == null) {
-                val dialog = AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.upload_warning)
-                    .setNegativeButton(R.string.action_close) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                dialog.show()
-            } else {
-                uploadImage()
+
+            buttonAdd.setOnClickListener {
+                if (viewModel.currentUri == null) {
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setMessage(R.string.upload_warning)
+                        .setNegativeButton(R.string.action_close) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create()
+                    dialog.show()
+                } else {
+                    uploadImage()
+                }
             }
-        }
-        binding.ibActionBack.setOnClickListener {
-            findNavController().popBackStack()
+
+            ibActionBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 
     private fun subscribeObserver() {
-        viewModel.observableUploadResponse.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                requireContext().showToast(R.string.upload_success)
-                findNavController().popBackStack()
-            }
-        }
-
         lifecycleScope.launch(Dispatchers.Main.immediate) {
             val isChecked = requireContext().settingsDataStore.data.firstOrNull()
                 ?.get(PreferencesKeys.LOCATION_TOGGLE)
             binding.toggleLocation.isChecked = isChecked ?: false
         }
 
-        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            when (uiState) {
-                is UiState.OnError -> {
-                    hideLoading()
-                    showError(uiState.message)
-                }
-                is UiState.OnLoading -> {
-                    showLoading()
-                }
-                is UiState.OnPostLoading -> {
-                    hideLoading()
+        viewModel.apply {
+            observableUploadResponse.observe(viewLifecycleOwner) { isSuccess ->
+                if (isSuccess) {
+                    requireContext().showToast(R.string.upload_success)
+                    findNavController().popBackStack()
                 }
             }
-        }
 
-        viewModel.observableUri.observe(viewLifecycleOwner) { uri ->
-            uri?.let {
-                binding.ivStoryImage.load(uri) {
-                    placeholder(R.drawable.ic_image)
+            uiState.observe(viewLifecycleOwner) { uiState ->
+                when (uiState) {
+                    is UiState.OnError -> {
+                        hideLoading()
+                        showError(uiState.message)
+                    }
+                    is UiState.OnLoading -> {
+                        showLoading()
+                    }
+                    is UiState.OnPostLoading -> {
+                        hideLoading()
+                    }
+                }
+            }
+
+            observableUri.observe(viewLifecycleOwner) { uri ->
+                uri?.let {
+                    binding.ivStoryImage.load(uri) {
+                        placeholder(R.drawable.ic_image)
+                    }
                 }
             }
         }
