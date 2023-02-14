@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.riopermana.story.R
-import com.riopermana.story.data.remote.Retrofit
+import com.riopermana.story.data.remote.RetrofitConfig
 import com.riopermana.story.model.Story
 import com.riopermana.story.ui.BaseViewModel
 import com.riopermana.story.ui.utils.ErrorMessageRes
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class StoriesViewModel : BaseViewModel() {
-    private val storyApi = Retrofit.storyApi
+    private val storyApi = RetrofitConfig.storyApi
 
     private val _stories = MutableLiveData<List<Story>>()
     val stories: LiveData<List<Story>> = _stories

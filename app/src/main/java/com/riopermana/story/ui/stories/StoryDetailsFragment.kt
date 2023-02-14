@@ -13,7 +13,8 @@ import com.riopermana.story.databinding.FragmentStoryDetailsBinding
 
 class StoryDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentStoryDetailsBinding
+    private var _binding: FragmentStoryDetailsBinding? = null
+    private val binding: FragmentStoryDetailsBinding get() = _binding!!
     private val viewModel: StoryDetailsVideModel by viewModels()
     private val storyArgs: StoryDetailsFragmentArgs by navArgs()
 
@@ -26,9 +27,10 @@ class StoryDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentStoryDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentStoryDetailsBinding.inflate(inflater, container, false)
         subscribeObserver()
         setupListener()
+
         return binding.root
     }
 
@@ -46,4 +48,8 @@ class StoryDetailsFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

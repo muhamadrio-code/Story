@@ -24,7 +24,9 @@ import java.util.*
 
 class StoriesFragment : Fragment() {
 
-    private lateinit var binding: FragmentStoriesBinding
+    private var _binding: FragmentStoriesBinding? = null
+    private val binding: FragmentStoriesBinding get() = _binding!!
+
     private val viewModel: StoriesViewModel by viewModels()
     private lateinit var adapter: StoryRecyclerViewAdapter
     private val formatter: SimpleDateFormat by lazy {
@@ -35,7 +37,7 @@ class StoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentStoriesBinding.inflate(inflater, container, false)
+        _binding = FragmentStoriesBinding.inflate(inflater, container, false)
         setupRecyclerView()
         subscribeObserver()
         setupListener()
@@ -132,4 +134,8 @@ class StoriesFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

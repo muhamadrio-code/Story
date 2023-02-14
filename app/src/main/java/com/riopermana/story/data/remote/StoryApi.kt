@@ -25,13 +25,15 @@ interface StoryApi {
         @Field("password") password: String
     ) : Response<LoginResponse>
 
-    @GET("v1/stories")
+    @GET("v1/stories?location=1")
     suspend fun getAllStory(@Header("Authorization") authorization:String) : Response<StoriesResponse>
 
     @Multipart
     @POST("v1/stories")
     suspend fun uploadFile(
         @Part("description") description: RequestBody,
+        @Part("lat") lat: RequestBody? = null,
+        @Part("lon") lon: RequestBody? = null,
         @Part file: MultipartBody.Part,
         @Header("Authorization") authorization: String
     ): Response<ApiResponse>

@@ -1,5 +1,7 @@
 package com.riopermana.story.ui.stories
 
+import android.location.Geocoder
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,26 +15,33 @@ import com.riopermana.story.model.Story
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class StoryRecyclerViewAdapter : ListAdapter<Story,StoryRecyclerViewAdapter.StoryViewHolder>(StoryDiffUtil()) {
 
-    private val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
-    private val targetFormat: DateFormat = SimpleDateFormat("E, MMM dd yyyy", Locale.US)
+    private val originalFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     private var clickListener: ((Story) -> Unit)? = null
     inner class StoryViewHolder(private val binding: FragmentStoryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Story) {
             val date = originalFormat.parse(item.createdAt)
-            binding.tvItemName.text = item.name
-            binding.tvCreatedAt.text = date?.let { targetFormat.format(date) } ?: ""
-            binding.ivItemPhoto.load(item.photoUrl) {
-                placeholder(R.drawable.ic_image)
-                transformations(RoundedCornersTransformation(20f,20f,20f,20f))
+            binding.apply {
+                tvCreatedAt.text = date?.let {
+                    val timiMillis = date.time
+                    DateUtils.getRelativeTimeSpanString(timiMillis,System.currentTimeMillis() - TimeUnit.HOURS.toMillis(7L), DateUtils.MINUTE_IN_MILLIS)
+                } ?: ""
+                tvItemName.text = item.name
+
+                ivItemPhoto.load(item.photoUrl) {
+                    placeholder(R.drawable.ic_image)
+                    transformations(RoundedCornersTransformation(20f,20f,20f,20f))
+                }
+                root.setOnClickListener {
+                    clickListener?.invoke(item)
+                }
             }
-            binding.root.setOnClickListener {
-                clickListener?.invoke(item)
-            }
+
         }
     }
 

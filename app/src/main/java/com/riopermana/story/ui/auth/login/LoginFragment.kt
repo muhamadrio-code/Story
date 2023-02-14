@@ -14,14 +14,15 @@ import com.riopermana.story.utils.showToast
 
 class LoginFragment : BaseAuthFragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding: FragmentLoginBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         playAnimation()
         setupListener()
         return binding.root
@@ -29,11 +30,13 @@ class LoginFragment : BaseAuthFragment() {
 
     private fun playAnimation() {
         val loginBtn = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(400)
-        val email = ObjectAnimator.ofFloat(binding.emailFieldLayout, View.ALPHA, 1f).setDuration(300)
-        val password = ObjectAnimator.ofFloat(binding.passwordFieldLayout, View.ALPHA, 1f).setDuration(350)
+        val email =
+            ObjectAnimator.ofFloat(binding.emailFieldLayout, View.ALPHA, 1f).setDuration(300)
+        val password =
+            ObjectAnimator.ofFloat(binding.passwordFieldLayout, View.ALPHA, 1f).setDuration(350)
 
         AnimatorSet().apply {
-            playTogether(email,password,loginBtn)
+            playTogether(email, password, loginBtn)
             start()
         }
     }
@@ -56,5 +59,10 @@ class LoginFragment : BaseAuthFragment() {
                 requireContext().showToast(R.string.sign_in_warn)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -8,11 +8,11 @@
   <string name="action_register">Daftar</string>
   <string name="sign_up_failed">Daftar gagal, coba lagi nanti</string>
   <string name="sign_in_failed">Masuk gagal, coba lagi nanti</string>
-  <string name="connection_failed">Gagadl terkoneksi ke server</string>
+  <string name="connection_failed">Gagal terkoneksi ke server</string>
   <string name="no_data">Tidak ada data</string>
   <string name="upload_failed">Gagal mengunggah</string>
   <string name="upload_success">Berhasil mengunggah</string>
-  <string name="upload_warning">Tambahkan gamber sebelum melanjutkan</string>
+  <string name="upload_warning">Tambahkan gambar sebelum melanjutkan</string>
   <string name="user_not_found">Password tidak sesuai atau pengguna tidak terdaftar</string>
   <string name="sign_in_warn">Mohon masukkan email dan password yang benar</string>
   <string name="welcome_text">Selamat Datang di Story</string>
@@ -30,6 +30,6 @@
   <string name="action_upload">Unggah</string>
   <string name="gallery">galeri</string>
   <string name="open_camera">buka kamera</string>
-  <string name="description_prompt">Deskripsi</string>
   <string name="camera_permission_denied">Izin kamera ditolak</string>
+  <string name="action_close">Tutup</string>
 </resources>
