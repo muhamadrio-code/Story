@@ -1,6 +1,5 @@
 package com.riopermana.story.ui.stories
 
-import android.location.Geocoder
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,13 +34,23 @@ class StoryRecyclerViewAdapter : ListAdapter<Story,StoryRecyclerViewAdapter.Stor
 
                 ivItemPhoto.load(item.photoUrl) {
                     placeholder(R.drawable.ic_image)
+                    error(R.drawable.ic_broken_image)
                     transformations(RoundedCornersTransformation(20f,20f,20f,20f))
-                }
-                root.setOnClickListener {
-                    clickListener?.invoke(item)
+                    target(
+                        onStart = {
+                            ivItemPhoto.setImageDrawable(it)
+                        },
+                        onError = {
+                            ivItemPhoto.setImageDrawable(it)
+                        },
+                        onSuccess = {
+                        ivItemPhoto.setImageDrawable(it)
+                        root.setOnClickListener {
+                            clickListener?.invoke(item)
+                        }
+                    })
                 }
             }
-
         }
     }
 

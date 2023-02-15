@@ -27,10 +27,6 @@ class RegisterFragment : BaseAuthFragment() {
         return binding.root
     }
 
-    private fun inflateMap() {
-
-    }
-
     private fun playAnimation() {
         val registerBtn = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(450)
         val name = ObjectAnimator.ofFloat(binding.nameFieldLayout, View.ALPHA, 1f).setDuration(300)
@@ -71,5 +67,4 @@ class RegisterFragment : BaseAuthFragment() {
             }
         }
     }
-
 }

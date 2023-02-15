@@ -29,5 +29,16 @@
     <argument
       android:name="story"
       app:argType="com.riopermana.story.model.Story" />
+    <action
+      android:id="@+id/action_storyDetailsFragment_to_mapsFragment"
+      app:destination="@id/mapsFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/mapsFragment"
+    android:name="com.riopermana.story.ui.maps.MapsFragment"
+    android:label="MapsFragment" >
+    <argument
+      android:name="story"
+      app:argType="com.riopermana.story.model.Story" />
   </fragment>
 </navigation>

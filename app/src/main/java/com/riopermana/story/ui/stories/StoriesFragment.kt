@@ -45,7 +45,7 @@ class StoriesFragment : Fragment() {
     }
 
     private fun setupListener() {
-        binding.edAddDescription.setOnClickListener {
+        binding.fabAddNewStory.setOnClickListener {
             findNavController().navigate(R.id.newStoryFragment)
         }
 
