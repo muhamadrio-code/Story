@@ -1,52 +1,35 @@
 package com.riopermana.story.ui.stories
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.riopermana.story.R
-import com.riopermana.story.data.remote.RetrofitConfig
+import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.riopermana.story.model.Story
+import com.riopermana.story.repositories.StoryRepository
 import com.riopermana.story.ui.BaseViewModel
 import com.riopermana.story.ui.utils.ErrorMessageRes
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class StoriesViewModel : BaseViewModel() {
-    private val storyApi = RetrofitConfig.storyApi
+class StoriesViewModel(private val storyRepository: StoryRepository) : BaseViewModel() {
 
-    private val _stories = MutableLiveData<List<Story>>()
-    val stories: LiveData<List<Story>> = _stories
+    private val _stories = MutableLiveData<String>()
+    val stories: LiveData<PagingData<Story>> = _stories.switchMap { auth ->
+        storyRepository.getStories("Bearer $auth").cachedIn(viewModelScope)
+    }
 
-    fun getStories(authorization: String) {
-        requestLoadingState()
-        viewModelScope.launch {
-            val response = runCatching {
-                storyApi.getAllStory("Bearer $authorization")
-            }.getOrNull()
+    fun getStories(auth: String) {
+        _stories.value = auth
+    }
 
-            response ?: run {
-                requestErrorAsync(ErrorMessageRes(R.string.connection_failed))
-                return@launch
-            }
+    fun requestLoading() = requestLoadingState()
+    fun requestNotLoading() = requestPostLoadingState()
+    fun requestErrorState(errorMessageRes: ErrorMessageRes) = requestErrorAsync(errorMessageRes)
+}
 
-            if (response.isSuccessful) {
-                response.body()?.let { storiesResponse ->
-                    if (storiesResponse.stories.isEmpty()) {
-                        requestErrorAsync(ErrorMessageRes(R.string.no_data))
-                    } else {
-                        _stories.postValue(storiesResponse.stories)
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        requestPostLoadingState()
-                    }
-                } ?: run {
-                    requestErrorAsync(ErrorMessageRes(R.string.connection_failed))
-                }
-            } else {
-                requestErrorAsync(ErrorMessageRes(R.string.connection_failed))
-            }
+class ViewModelFactory(private val storyRepository: StoryRepository) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
+            return StoriesViewModel(storyRepository) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

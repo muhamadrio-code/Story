@@ -12,7 +12,7 @@ import com.riopermana.story.ui.utils.ErrorMessageRes
 import kotlinx.coroutines.launch
 
 class AuthViewModel : BaseViewModel() {
-    private val storyApi = RetrofitConfig.storyApi
+    private val storyApi = RetrofitConfig.storyApiService
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse : LiveData<LoginResponse> = _loginResponse

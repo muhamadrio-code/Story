@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -16,64 +15,88 @@
       android:id="@+id/topAppBar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      app:menu="@menu/main_menu"
       app:layout_scrollFlags="scroll|enterAlways|snap"
-      app:title="@string/app_name"
-      />
+      app:menu="@menu/main_menu"
+      app:title="@string/app_name" />
 
     <com.google.android.material.divider.MaterialDivider
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content" />
 
   </com.google.android.material.appbar.AppBarLayout>
 
-  <FrameLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    >
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/story_recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:overScrollMode="never"
-      android:padding="16dp"
       android:clipToPadding="false"
+      android:overScrollMode="never"
+      android:paddingVertical="4dp"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       tools:itemCount="16"
       tools:listitem="@layout/fragment_story_item" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
       android:id="@+id/loading_indicator"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_gravity="center"
+      android:layout_marginBottom="?attr/actionBarSize"
       android:background="@android:color/transparent"
       android:indeterminate="true"
-      android:layout_marginBottom="?attr/actionBarSize"
-      app:indicatorSize="30dp"
-      android:layout_gravity="center" />
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.39" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_retry"
+      style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:visibility="gone"
+      app:icon="@drawable/ic_refresh"
+      app:iconTint="?attr/colorPrimary"
+      app:backgroundTint="@android:color/transparent"
+      app:cornerRadius="100dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.39" />
 
     <com.google.android.material.textview.MaterialTextView
       android:id="@+id/tv_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
+      android:layout_marginTop="16dp"
       android:textAlignment="center"
-      android:layout_marginTop="32dp"
       android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/btn_retry"
       tools:text="No data" />
 
-  </FrameLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab_add_newStory"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:backgroundTint="?attr/colorPrimary"
-    android:contentDescription="@string/add_new_story"
-    app:srcCompat="@drawable/ic_add"
     android:layout_gravity="bottom|end"
-    />
+    android:layout_margin="16dp"
+    android:contentDescription="@string/add_new_story"
+    app:backgroundTint="?attr/colorPrimary"
+    app:srcCompat="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

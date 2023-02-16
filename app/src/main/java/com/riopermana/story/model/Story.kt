@@ -1,10 +1,12 @@
 package com.riopermana.story.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "story_table", primaryKeys = ["id"])
 data class Story(
     @field:SerializedName("createdAt")
     val createdAt: String,

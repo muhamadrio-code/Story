@@ -33,4 +33,5 @@
   <string name="camera_permission_denied">Izin kamera ditolak</string>
   <string name="action_close">Tutup</string>
   <string name="location">lokasi</string>
+  <string name="story_by_placeholder">Cerita oleh</string>
 </resources>

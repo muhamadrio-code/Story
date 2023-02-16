@@ -85,12 +85,18 @@ class StoryDetailsFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupListener() {
-        binding.ivDetailPhoto.setOnClickListener {
-            showUi(!isUiVisible)
-        }
+        binding.apply {
+            ivDetailPhoto.setOnClickListener {
+                showUi(!isUiVisible)
+            }
 
-        binding.addressContainer.setOnClickListener {
-            navigateToMaps()
+            addressContainer.setOnClickListener {
+                navigateToMaps()
+            }
+
+            ibActionBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 

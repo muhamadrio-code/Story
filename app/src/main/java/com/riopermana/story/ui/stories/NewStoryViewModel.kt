@@ -18,7 +18,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class NewStoryViewModel : BaseViewModel() {
-    private val storyApi = RetrofitConfig.storyApi
+    private val storyApi = RetrofitConfig.storyApiService
 
     private val _observableUploadResponse = MutableLiveData<Boolean>()
     val observableUploadResponse: LiveData<Boolean> = _observableUploadResponse
@@ -26,8 +26,7 @@ class NewStoryViewModel : BaseViewModel() {
     var currentUri: Uri? = null
         private set
 
-    var lastLocation: Location? = null
-        private set
+    private var lastLocation: Location? = null
 
     private var tempUri: Uri? = null
 

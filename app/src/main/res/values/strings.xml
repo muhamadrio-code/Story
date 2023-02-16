@@ -36,4 +36,5 @@
   <string name="gallery">gallery</string>
   <string name="open_camera">open camera</string>
   <string name="location">location</string>
+  <string name="story_by_placeholder">Story by</string>
 </resources>

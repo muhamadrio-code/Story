@@ -29,7 +29,7 @@ object RetrofitConfig {
     }
 
 
-    val storyApi: StoryApi by lazy {
-        instance.create(StoryApi::class.java)
+    val storyApiService: StoryApiService by lazy {
+        instance.create(StoryApiService::class.java)
     }
 }

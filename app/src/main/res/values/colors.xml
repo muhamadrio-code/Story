@@ -54,4 +54,5 @@
   <color name="md_theme_dark_inversePrimary">#8C5000</color>
   <color name="background_color">#2f2a28</color>
   <color name="black_300">#4D000000</color>
+  <color name="black_500">#80000000</color>
 </resources>
