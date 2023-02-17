@@ -1,6 +1,9 @@
 package com.riopermana.story.ui.stories
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.riopermana.story.model.Story
@@ -31,14 +34,4 @@ class StoriesViewModel(private val storyRepository: StoryRepository) : BaseViewM
     fun requestLoading() = requestLoadingState()
     fun requestNotLoading() = requestPostLoadingState()
     fun requestErrorState(errorMessageRes: ErrorMessageRes) = requestErrorAsync(errorMessageRes)
-}
-
-class ViewModelFactory(private val storyRepository: StoryRepository) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
-            return StoriesViewModel(storyRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
 }

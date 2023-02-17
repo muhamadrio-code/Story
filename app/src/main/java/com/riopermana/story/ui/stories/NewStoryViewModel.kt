@@ -41,8 +41,10 @@ class NewStoryViewModel : BaseViewModel() {
                     description = description,
                     file = file,
                     authorization = "Bearer $auth",
-                    lat = lastLocation?.latitude.toString().toRequestBody("text/plain".toMediaType()),
-                    lon = lastLocation?.longitude.toString().toRequestBody("text/plain".toMediaType())
+                    lat = lastLocation?.latitude?.toString()
+                        ?.toRequestBody("text/plain".toMediaType()),
+                    lon = lastLocation?.longitude?.toString()
+                        ?.toRequestBody("text/plain".toMediaType())
                 )
             }.getOrNull()
 

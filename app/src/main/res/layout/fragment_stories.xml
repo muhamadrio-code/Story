@@ -51,7 +51,6 @@
       android:layout_height="48dp"
       android:layout_gravity="center"
       android:layout_marginBottom="?attr/actionBarSize"
-      android:background="@android:color/transparent"
       android:indeterminate="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +63,7 @@
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:visibility="gone"
-      app:backgroundTint="@android:color/transparent"
+      style="@style/Widget.App.Button.OutlinedButton.IconOnly"
       app:cornerRadius="100dp"
       app:icon="@drawable/ic_refresh"
       app:iconTint="?attr/colorPrimary"
@@ -103,6 +102,7 @@
       app:backgroundTint="?attr/colorOnSurface"
       android:layout_marginBottom="8dp"
       android:visibility="gone"
+      app:elevation="0dp"
       app:srcCompat="@drawable/ic_map_outlined" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -113,6 +113,7 @@
       app:backgroundTint="?attr/colorOnSurface"
       android:layout_marginBottom="8dp"
       android:visibility="gone"
+      app:elevation="0dp"
       app:srcCompat="@drawable/ic_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -122,6 +123,7 @@
       android:contentDescription="@string/open_fab_description"
       app:backgroundTint="?attr/colorPrimary"
       android:tint="?attr/colorOnPrimary"
+      app:elevation="0dp"
       app:srcCompat="@drawable/ic_settings" />
   </LinearLayout>
 

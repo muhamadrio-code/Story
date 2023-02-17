@@ -3,6 +3,9 @@ package com.riopermana.story.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.riopermana.story.repositories.StoryRepository
+import com.riopermana.story.ui.stories.StoriesViewModel
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import com.riopermana.story.ui.utils.UiState
 
@@ -26,5 +29,14 @@ open class BaseViewModel: ViewModel() {
     protected fun requestPostLoadingStateAsync() {
         _uiState.postValue(UiState.OnPostLoading)
     }
+}
 
+class ViewModelFactory(private val storyRepository: StoryRepository) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
+            return StoriesViewModel(storyRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
