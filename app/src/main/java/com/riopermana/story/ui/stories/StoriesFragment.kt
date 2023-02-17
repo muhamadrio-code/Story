@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -44,11 +43,6 @@ class StoriesFragment : Fragment() {
     )
     private lateinit var adapter: StoryPagingAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("TAG", "CONTENT CREATED::StoriesFragment::onCreate")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +58,7 @@ class StoriesFragment : Fragment() {
     private fun setupListener() {
         with(binding) {
             fabAddNewStory.setOnClickListener {
+                viewModel.toggleFabsInvisibility()
                 findNavController().navigate(R.id.newStoryFragment)
             }
 
@@ -72,8 +67,9 @@ class StoriesFragment : Fragment() {
             }
 
             fabShowcaseMode.setOnClickListener {
+                viewModel.toggleFabsInvisibility()
                 val action =
-                    StoriesFragmentDirections.actionGlobalMapsFragment()
+                    StoriesFragmentDirections.actionStoriesFragmentToMapsFragment()
                 findNavController().navigate(action)
             }
 
@@ -217,6 +213,7 @@ class StoriesFragment : Fragment() {
         adapter.addLoadStateListener { combinedLoadStates ->
             val state = combinedLoadStates.mediator ?: return@addLoadStateListener
             val stateRefresh = state.refresh
+
             if (stateRefresh is LoadState.Loading) {
                 viewModel.requestLoading()
             }
