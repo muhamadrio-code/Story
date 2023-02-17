@@ -22,11 +22,10 @@ class StoryActivity : AppCompatActivity() {
                 if(token == null){
                     startActivity(Intent(this@StoryActivity, AuthActivity::class.java))
                     finish()
-                } else {
-                    Log.d("TAG", "CONTENT CREATED")
-                    setContentView(R.layout.activity_story)
                 }
             }
+
+        setContentView(R.layout.activity_story)
 
     }
 }

@@ -13,24 +13,24 @@ interface StoryApiService {
     @POST("v1/register")
     @FormUrlEncoded
     suspend fun createUser(
-        @Field("name") name:String,
-        @Field("email") email:String,
+        @Field("name") name: String,
+        @Field("email") email: String,
         @Field("password") password: String
-    ) : Response<ApiResponse>
+    ): Response<ApiResponse>
 
     @POST("v1/login")
     @FormUrlEncoded
     suspend fun login(
-        @Field("email") email:String,
+        @Field("email") email: String,
         @Field("password") password: String
-    ) : Response<LoginResponse>
+    ): Response<LoginResponse>
 
     @GET("v1/stories?location=1")
     suspend fun getStories(
-        @Header("Authorization") authorization:String,
+        @Header("Authorization") authorization: String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ) : Response<StoriesResponse>
+    ): Response<StoriesResponse>
 
     @Multipart
     @POST("v1/stories")
@@ -41,4 +41,5 @@ interface StoryApiService {
         @Part file: MultipartBody.Part,
         @Header("Authorization") authorization: String
     ): Response<ApiResponse>
+
 }

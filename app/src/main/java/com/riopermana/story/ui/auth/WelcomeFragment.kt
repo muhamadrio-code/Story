@@ -9,19 +9,19 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.riopermana.story.R
-import com.riopermana.story.databinding.FragmentAuthDashboardBinding
+import com.riopermana.story.databinding.FragmentWelcomeBinding
 
-class AuthDashboardFragment : BaseAuthFragment() {
+class WelcomeFragment : BaseAuthFragment() {
 
-    private lateinit var binding: FragmentAuthDashboardBinding
-    private val userArgs: AuthDashboardFragmentArgs by navArgs()
+    private lateinit var binding: FragmentWelcomeBinding
+    private val userArgs: WelcomeFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAuthDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentWelcomeBinding.inflate(inflater, container, false)
         val user = userArgs.user
         user?.let {
             viewModel.login(email = it.email, password = it.password)

@@ -7,9 +7,9 @@
 
   <fragment
     android:id="@+id/authDashboardFragment"
-    android:name="com.riopermana.story.ui.auth.AuthDashboardFragment"
+    android:name="com.riopermana.story.ui.auth.WelcomeFragment"
     android:label="AuthDashboardFragment"
-    tools:layout="@layout/fragment_auth_dashboard"
+    tools:layout="@layout/fragment_welcome"
     >
     <argument
       android:name="user"

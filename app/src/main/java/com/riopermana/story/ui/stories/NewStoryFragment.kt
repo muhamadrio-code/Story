@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,39 +52,11 @@ class NewStoryFragment : Fragment() {
     private val viewModel: NewStoryViewModel by viewModels()
     private lateinit var loadingDialog: LoadingDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onCreate")
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onStart view = ${requireView()} root = ${binding.root.childCount}")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onDestroyView")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("TAG", "CONTENT CREATED::NewStoryFragment::onCreateView")
-
         _binding = FragmentNewStoryBinding.inflate(inflater, container, false)
         loadingDialog = LoadingDialog(requireContext())
         setupListener()
@@ -273,7 +244,7 @@ class NewStoryFragment : Fragment() {
                 if (isGranted) {
                     createLocationRequest()
                 } else {
-                    requireContext().showToast("Permission has been denied")
+                    requireContext().showToast(R.string.camera_permission_denied)
                 }
             }
         }

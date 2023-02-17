@@ -18,13 +18,13 @@ class AuthActivity : AppCompatActivity() {
             .asLiveData(lifecycleScope.coroutineContext + Dispatchers.Main.immediate)
             .observe(this@AuthActivity) {preferences ->
                 val token = preferences[PreferencesKeys.TOKEN_KEY]
-                if (token == null) {
-                    setContentView(R.layout.activity_auth)
-                } else {
+                if (token != null) {
                     val intent = Intent(this@AuthActivity, StoryActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
             }
+
+        setContentView(R.layout.activity_auth)
     }
 }
