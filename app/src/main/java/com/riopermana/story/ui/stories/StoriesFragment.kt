@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.riopermana.story.R
@@ -73,7 +72,6 @@ class StoriesFragment : Fragment() {
             fabShowcaseMode.setOnClickListener {
                 val action =
                     StoriesFragmentDirections.actionGlobalMapsFragment()
-                findNavController().popBackStack()
                 findNavController().navigate(action)
             }
 
@@ -140,7 +138,7 @@ class StoriesFragment : Fragment() {
         }
     }
 
-    private fun setFabsClickability(isEnable:Boolean) {
+    private fun setFabsClickability(isEnable: Boolean) {
         with(binding) {
             fabShowcaseMode.isClickable = isEnable
             fabAddNewStory.isClickable = isEnable
