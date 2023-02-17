@@ -20,8 +20,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField ("String", "BASE_URL", "\"https://story-api.dicoding.dev/\"")
-        buildConfigField ("String", "MAP_API_KEY", "\"AIzaSyChLuxDzLGhiBWJVTzGcMcfwtk3lF2hcTA\"")
+        buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/\"")
+        buildConfigField("String", "MAP_API_KEY", "\"AIzaSyChLuxDzLGhiBWJVTzGcMcfwtk3lF2hcTA\"")
     }
 
     buildFeatures {
@@ -34,10 +34,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-opt-in=kotlin.RequiresOptIn"]
@@ -52,8 +58,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.9.0'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
     // google maps
@@ -96,7 +100,13 @@ dependencies {
 
     // Unit test
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version" //TestDispatcher
+    testImplementation 'androidx.arch.core:core-testing:2.1.0-alpha01' // InstantTaskExecutorRule
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    //TestDispatcher
+    debugImplementation 'androidx.fragment:fragment-testing:1.5.0' //launchFragmentInContainer
 
+    // Android test
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    debugImplementation "androidx.test:monitor:1.6.1"
 }
