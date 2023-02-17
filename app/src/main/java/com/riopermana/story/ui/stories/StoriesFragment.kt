@@ -5,14 +5,19 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.riopermana.story.R
@@ -38,6 +43,11 @@ class StoriesFragment : Fragment() {
     )
     private lateinit var adapter: StoryPagingAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("TAG", "CONTENT CREATED::StoriesFragment::onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,39 +61,96 @@ class StoriesFragment : Fragment() {
     }
 
     private fun setupListener() {
-        binding.fabAddNewStory.setOnClickListener {
-            findNavController().navigate(R.id.newStoryFragment)
-        }
-
-        binding.btnRetry.setOnClickListener {
-            adapter.refresh()
-        }
-
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_language -> {
-                    startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-                    true
-                }
-                R.id.action_logout -> {
-                    val confirmationDialog = AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.action_logout)
-                        .setNegativeButton(R.string.cancel) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .setPositiveButton(R.string.action_logout) { _, _ ->
-                            lifecycleScope.launch {
-                                DataStoreUtil.clearSession(requireContext())
-                            }
-                        }
-                        .create()
-
-                    confirmationDialog.show()
-
-                    true
-                }
-                else -> false
+        with(binding) {
+            fabAddNewStory.setOnClickListener {
+                findNavController().navigate(R.id.newStoryFragment)
             }
+
+            fabOpenFabMenu.setOnClickListener {
+                viewModel.toggleFabsInvisibility()
+            }
+
+            fabShowcaseMode.setOnClickListener {
+                val action =
+                    StoriesFragmentDirections.actionGlobalMapsFragment()
+                findNavController().popBackStack()
+                findNavController().navigate(action)
+            }
+
+            btnRetry.setOnClickListener {
+                adapter.refresh()
+            }
+
+            topAppBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_language -> {
+                        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                        true
+                    }
+                    R.id.action_logout -> {
+                        val confirmationDialog = AlertDialog.Builder(requireContext())
+                            .setTitle(R.string.action_logout)
+                            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .setPositiveButton(R.string.action_logout) { _, _ ->
+                                lifecycleScope.launch {
+                                    DataStoreUtil.clearSession(requireContext())
+                                }
+                            }
+                            .create()
+
+                        confirmationDialog.show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun openFabMenu(boolean: Boolean) {
+        val rotateOpen = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)
+        val rotateClose = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim)
+        val fromBottom = AnimationUtils.loadAnimation(requireContext(), R.anim.from_bottom_anim)
+        val toBottom = AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim)
+
+        setFabsInvisibility(boolean)
+        setFabsClickability(boolean)
+        playaFabsAnimations(rotateOpen, rotateClose, fromBottom, toBottom, boolean)
+    }
+
+    private fun playaFabsAnimations(
+        rotateOpen: Animation,
+        rotateClose: Animation,
+        fromBottom: Animation,
+        toBottom: Animation,
+        startPlay: Boolean
+    ) {
+        with(binding) {
+            if (startPlay) {
+                fabShowcaseMode.startAnimation(fromBottom)
+                fabAddNewStory.startAnimation(fromBottom)
+                fabOpenFabMenu.startAnimation(rotateOpen)
+            } else {
+                fabShowcaseMode.startAnimation(toBottom)
+                fabAddNewStory.startAnimation(toBottom)
+                fabOpenFabMenu.startAnimation(rotateClose)
+            }
+        }
+    }
+
+    private fun setFabsClickability(isEnable:Boolean) {
+        with(binding) {
+            fabShowcaseMode.isClickable = isEnable
+            fabAddNewStory.isClickable = isEnable
+        }
+    }
+
+    private fun setFabsInvisibility(invisible: Boolean) {
+        with(binding) {
+            fabShowcaseMode.isInvisible = invisible
+            fabAddNewStory.isInvisible = invisible
         }
     }
 
@@ -94,6 +161,10 @@ class StoriesFragment : Fragment() {
                     viewModel.getStories(token)
                 }
             }
+        }
+
+        viewModel.fabsInvisibility.observe(viewLifecycleOwner) { isInvisible ->
+            openFabMenu(isInvisible)
         }
 
         viewModel.stories.observe(viewLifecycleOwner) { pagingData ->
@@ -154,12 +225,11 @@ class StoriesFragment : Fragment() {
                 viewModel.requestNotLoading()
             }
 
-            if (stateRefresh is LoadState.Error){
-                when(stateRefresh.error) {
+            if (stateRefresh is LoadState.Error) {
+                when (stateRefresh.error) {
                     is UnknownHostException -> viewModel.requestErrorState(ErrorMessageRes(R.string.connection_failed))
                     else -> viewModel.requestErrorState(ErrorMessageRes(R.string.no_data))
                 }
-
             }
         }
         val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)

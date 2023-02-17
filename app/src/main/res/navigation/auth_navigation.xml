@@ -16,6 +16,15 @@
       app:argType="com.riopermana.story.model.User"
       app:nullable="true"
       android:defaultValue="@null" />
+    <action
+      android:id="@+id/action_authDashboardFragment_to_loginFragment"
+      app:destination="@id/loginFragment"
+      app:enterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_right_anim"
+      app:popEnterAnim="@anim/from_right_anim"
+      app:popExitAnim="@anim/to_right_anim"
+      app:popUpTo="@id/mapsFragment"
+      />
   </fragment>
   <fragment
     android:id="@+id/loginFragment"
@@ -32,6 +41,12 @@
     >
     <action
       android:id="@+id/action_registerFragment_to_authDashboardFragment"
-      app:destination="@id/authDashboardFragment" />
+      app:destination="@id/authDashboardFragment"
+      app:enterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_right_anim"
+      app:popEnterAnim="@anim/from_right_anim"
+      app:popExitAnim="@anim/to_right_anim"
+      app:popUpTo="@id/mapsFragment"
+      />
   </fragment>
 </navigation>

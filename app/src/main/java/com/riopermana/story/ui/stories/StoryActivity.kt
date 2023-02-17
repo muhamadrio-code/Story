@@ -2,6 +2,7 @@ package com.riopermana.story.ui.stories
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +23,7 @@ class StoryActivity : AppCompatActivity() {
                     startActivity(Intent(this@StoryActivity, AuthActivity::class.java))
                     finish()
                 } else {
+                    Log.d("TAG", "CONTENT CREATED")
                     setContentView(R.layout.activity_story)
                 }
             }

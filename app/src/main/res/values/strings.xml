@@ -37,4 +37,6 @@
   <string name="open_camera">open camera</string>
   <string name="location">location</string>
   <string name="story_by_placeholder">Story by</string>
+  <string name="open_fab_description">Open fab</string>
+  <string name="showcase_mode_content_desc">showcase mode</string>
 </resources>

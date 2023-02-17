@@ -35,7 +35,7 @@
   </FrameLayout>
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/header"
+    android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="?android:actionBarSize"
     android:background="@drawable/background_surface_gracdient"
@@ -90,75 +90,5 @@
     Description Description Description Description
     Description Description Description Description
 " />
-
-  <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/address_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/secondary_container"
-    android:elevation="8dp"
-    android:padding="8dp"
-    android:visibility="gone"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginTop="16dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/header">
-
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-      android:id="@+id/map_icon"
-      android:layout_width="68dp"
-      android:layout_height="68dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:round="10dp"
-      app:srcCompat="@drawable/ic_map" />
-
-    <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/tv_location_prompt"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:text="@string/location"
-      android:textColor="?attr/colorOnSecondaryContainer"
-      android:textAllCaps="true"
-      android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/map_icon"
-      app:layout_constraintTop_toTopOf="@id/map_icon"
-      tools:layout_editor_absoluteX="32dp" />
-
-    <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/tv_featured_name"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      tools:text="Orchid Forest Cikole"
-      android:textColor="?attr/colorOnSecondaryContainer"
-      android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/tv_locality_name"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/map_icon"
-      app:layout_constraintTop_toBottomOf="@id/tv_location_prompt"
-      tools:layout_editor_absoluteX="32dp" />
-
-    <com.google.android.material.textview.MaterialTextView
-      android:id="@+id/tv_locality_name"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:drawablePadding="8dp"
-      tools:text="Kecamatan Pesantren"
-      android:textColor="?attr/colorOnSecondaryContainer"
-      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-      app:drawableStartCompat="@drawable/ic_location_on"
-      app:drawableTint="?attr/colorOnSecondaryContainer"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/tv_featured_name"
-      app:layout_constraintTop_toBottomOf="@+id/tv_featured_name"
-      tools:layout_editor_absoluteX="16dp" />
-  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

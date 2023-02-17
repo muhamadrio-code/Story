@@ -61,14 +61,13 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/btn_retry"
-      style="@style/Widget.App.Button.OutlinedButton.IconOnly"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:visibility="gone"
-      app:icon="@drawable/ic_refresh"
-      app:iconTint="?attr/colorPrimary"
       app:backgroundTint="@android:color/transparent"
       app:cornerRadius="100dp"
+      app:icon="@drawable/ic_refresh"
+      app:iconTint="?attr/colorPrimary"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -89,14 +88,41 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab_add_newStory"
+  <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
     android:layout_margin="16dp"
-    android:contentDescription="@string/add_new_story"
-    app:backgroundTint="?attr/colorPrimary"
-    app:srcCompat="@drawable/ic_add" />
+    android:orientation="vertical">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_showcase_mode"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/showcase_mode_content_desc"
+      app:backgroundTint="?attr/colorOnSurface"
+      android:layout_marginBottom="8dp"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_map_outlined" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_add_newStory"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/add_new_story"
+      app:backgroundTint="?attr/colorOnSurface"
+      android:layout_marginBottom="8dp"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_open_fab_menu"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/open_fab_description"
+      app:backgroundTint="?attr/colorPrimary"
+      android:tint="?attr/colorOnPrimary"
+      app:srcCompat="@drawable/ic_settings" />
+  </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

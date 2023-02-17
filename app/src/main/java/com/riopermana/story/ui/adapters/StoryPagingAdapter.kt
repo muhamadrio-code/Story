@@ -7,6 +7,7 @@ import android.text.format.DateUtils
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,8 +58,20 @@ class StoryPagingAdapter : PagingDataAdapter<Story, StoryPagingAdapter.StoryView
                 tvItemName.text = spannable
 
                 ivItemPhoto.load(item.photoUrl) {
-                    placeholder(R.drawable.ic_image)
                     error(R.drawable.ic_broken_image)
+                    target(
+                        onStart = {
+                            progressCircular.isVisible = true
+                        },
+                        onError = {
+                            progressCircular.isVisible = false
+                            ivItemPhoto.setImageDrawable(it)
+                        },
+                        onSuccess = {
+                            progressCircular.isVisible = false
+                            ivItemPhoto.setImageDrawable(it)
+                        }
+                    )
                 }
                 root.setOnClickListener {
                     clickListener?.invoke(item)

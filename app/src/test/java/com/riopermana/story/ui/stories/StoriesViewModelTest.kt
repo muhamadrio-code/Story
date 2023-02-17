@@ -1,12 +1,16 @@
 package com.riopermana.story.ui.stories
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingData
+import com.riopermana.story.model.StoriesResponse
 import com.riopermana.story.model.Story
 import com.riopermana.story.repositories.FakeStoryRepository
+import com.riopermana.story.repositories.StoryRepository
 import com.riopermana.story.ui.adapters.StoryPagingAdapter
 import com.riopermana.story.utils.MainDispatcherRule
+import com.riopermana.story.utils.StoryPagingSource
 import com.riopermana.story.utils.getOrAwaitValue
 import com.riopermana.story.utils.noopListUpdateCallback
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +21,10 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 class StoriesViewModelTest {
@@ -107,5 +115,4 @@ class StoriesViewModelTest {
         differ.submitData(actualStory)
         assertEquals(differ.snapshot().size, dummyData.stories.size)
     }
-
 }

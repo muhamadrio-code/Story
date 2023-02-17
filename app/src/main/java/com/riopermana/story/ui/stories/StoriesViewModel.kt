@@ -15,6 +15,15 @@ class StoriesViewModel(private val storyRepository: StoryRepository) : BaseViewM
         storyRepository.getStories("Bearer $auth").cachedIn(viewModelScope)
     }
 
+    private val _fabsInvisibility = MutableLiveData<Boolean>()
+    val fabsInvisibility: LiveData<Boolean> = _fabsInvisibility
+
+    private var isInvisible = true
+    fun toggleFabsInvisibility() {
+        _fabsInvisibility.value = isInvisible
+        isInvisible = !isInvisible
+    }
+
     fun getStories(auth: String) {
         _stories.value = auth
     }
