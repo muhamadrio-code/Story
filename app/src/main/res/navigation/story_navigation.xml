@@ -3,28 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/main_navigation"
-  app:startDestination="@id/storiesFragment">
+  app:startDestination="@id/story_dashboard_nav">
 
-  <fragment
-    android:id="@+id/storiesFragment"
-    android:name="com.riopermana.story.ui.stories.StoriesFragment"
-    android:label="fragment_stories"
-    tools:layout="@layout/fragment_stories">
-    <action
-      android:id="@+id/action_storiesFragment_to_newStoryFragment"
-      app:destination="@id/newStoryFragment"
-      app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
-      app:popExitAnim="@anim/to_right_anim" />
-    <action
-      android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
-      app:destination="@id/storyDetailsFragment"
-      app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
-      app:popExitAnim="@anim/to_right_anim" />
-  </fragment>
   <fragment
     android:id="@+id/newStoryFragment"
     android:name="com.riopermana.story.ui.stories.NewStoryFragment"
@@ -38,39 +18,34 @@
       android:name="story"
       app:argType="com.riopermana.story.model.Story" />
   </fragment>
-  <fragment
-    android:id="@+id/mapsFragment"
-    android:name="com.riopermana.story.ui.maps.MapsFragment"
-    android:label="MapsFragment">
-    <action
-      android:id="@+id/action_mapsFragment_to_storyDetailsFragment"
-      app:destination="@id/storyDetailsFragment"
-      app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
-      app:popExitAnim="@anim/to_right_anim" />
-    <action
-      android:id="@+id/action_mapsFragment_to_newStoryFragment"
-      app:destination="@id/newStoryFragment"
-      app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
-      app:popExitAnim="@anim/to_right_anim" />
-  </fragment>
-  <action
-    android:id="@+id/action_global_mapsFragment"
-    app:destination="@id/mapsFragment"
-    app:enterAnim="@anim/from_right_anim"
-    app:exitAnim="@anim/to_right_anim"
-    app:popEnterAnim="@anim/from_right_anim"
-    app:popExitAnim="@anim/to_right_anim"
-    app:popUpTo="@id/mapsFragment" />
-  <action
-    android:id="@+id/action_global_storiesFragment"
-    app:destination="@id/storiesFragment"
-    app:enterAnim="@anim/from_right_anim"
-    app:exitAnim="@anim/to_right_anim"
-    app:popEnterAnim="@anim/from_right_anim"
-    app:popExitAnim="@anim/to_right_anim"
-    app:popUpTo="@id/storiesFragment" />
+  <navigation android:id="@+id/story_dashboard_nav"
+    app:startDestination="@id/storiesFragment">
+    <fragment
+      android:id="@+id/mapsFragment"
+      android:name="com.riopermana.story.ui.maps.MapsFragment"
+      android:label="MapsFragment" />
+    <fragment
+      android:id="@+id/storiesFragment"
+      android:name="com.riopermana.story.ui.stories.StoriesFragment"
+      android:label="fragment_stories"
+      tools:layout="@layout/fragment_stories">
+      <action
+        android:id="@+id/action_storiesFragment_to_newStoryFragment"
+        app:destination="@id/newStoryFragment"
+        app:enterAnim="@anim/from_right_anim"
+        app:exitAnim="@anim/to_right_anim"
+        app:popEnterAnim="@anim/from_right_anim"
+        app:popExitAnim="@anim/to_right_anim" />
+      <action
+        android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
+        app:destination="@id/storyDetailsFragment"
+        app:enterAnim="@anim/from_right_anim"
+        app:exitAnim="@anim/to_right_anim"
+        app:popEnterAnim="@anim/from_right_anim"
+        app:popExitAnim="@anim/to_right_anim" />
+      <action
+        android:id="@+id/action_storiesFragment_to_mapsFragment"
+        app:destination="@id/mapsFragment" />
+    </fragment>
+  </navigation>
 </navigation>

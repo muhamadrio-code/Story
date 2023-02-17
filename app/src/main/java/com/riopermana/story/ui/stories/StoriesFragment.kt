@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.riopermana.story.R
 import com.riopermana.story.data.local.DataStoreUtil
 import com.riopermana.story.databinding.FragmentStoriesBinding
 import com.riopermana.story.di.storyRepository
+import com.riopermana.story.ui.ViewModelFactory
 import com.riopermana.story.ui.adapters.StoryPagingAdapter
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import com.riopermana.story.ui.utils.UiState
@@ -35,7 +36,8 @@ class StoriesFragment : Fragment() {
     private var _binding: FragmentStoriesBinding? = null
     private val binding: FragmentStoriesBinding get() = _binding!!
 
-    private val viewModel: StoriesViewModel by viewModels(
+    private val viewModel: StoriesViewModel by navGraphViewModels(
+        navGraphId = R.id.story_dashboard_nav,
         factoryProducer = {
             ViewModelFactory((requireActivity().applicationContext as Application).storyRepository)
         }

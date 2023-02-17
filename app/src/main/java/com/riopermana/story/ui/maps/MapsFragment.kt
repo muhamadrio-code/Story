@@ -12,6 +12,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navGraphViewModels
 import androidx.paging.AsyncPagingDataDiffer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -26,20 +27,20 @@ import com.riopermana.story.data.local.DataStoreUtil
 import com.riopermana.story.databinding.FragmentMapsBinding
 import com.riopermana.story.di.storyRepository
 import com.riopermana.story.model.Story
+import com.riopermana.story.ui.ViewModelFactory
 import com.riopermana.story.ui.adapters.StoryPagingAdapter
 import com.riopermana.story.ui.stories.StoriesViewModel
 import com.riopermana.story.utils.noopListUpdateCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding: FragmentMapsBinding get() = _binding!!
 
-    private val viewModel: StoriesViewModel by viewModels(
+    private val viewModel: StoriesViewModel by navGraphViewModels(
+        navGraphId = R.id.story_dashboard_nav,
         factoryProducer = {
             ViewModelFactory((requireActivity().applicationContext as Application).storyRepository)
         }
