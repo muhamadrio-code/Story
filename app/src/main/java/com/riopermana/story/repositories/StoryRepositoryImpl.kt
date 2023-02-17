@@ -16,7 +16,7 @@ class StoryRepositoryImpl(
     override fun getStories(auth: String): LiveData<PagingData<Story>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5
+                pageSize = DEFAULT_PAGE_SIZE
             ),
             remoteMediator = StoryRemoteMediator(
                 authKey = auth,
@@ -27,5 +27,9 @@ class StoryRepositoryImpl(
                 storyDatabase.storyDao().getStories()
             }
         ).liveData
+    }
+
+    companion object {
+        private const val DEFAULT_PAGE_SIZE = 5
     }
 }
