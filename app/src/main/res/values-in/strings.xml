@@ -34,4 +34,5 @@
   <string name="action_close">Tutup</string>
   <string name="location">lokasi</string>
   <string name="story_by_placeholder">Cerita oleh</string>
+  <string name="story_image_content_description">gambar cerita</string>
 </resources>
