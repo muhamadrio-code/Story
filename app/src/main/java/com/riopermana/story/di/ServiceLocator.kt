@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.room.Room
 import com.riopermana.story.data.local.room.StoryDatabase
-import com.riopermana.story.data.remote.RetrofitConfig
+import com.riopermana.story.data.remote.ApiConfig
 import com.riopermana.story.repositories.StoriesRepositoryImpl
 
 val Application.storyRepository get() = ServiceLocator.provideTasksRepository(this)
@@ -32,7 +32,7 @@ object ServiceLocator {
     private fun createStoryRepository(context: Context): StoriesRepositoryImpl {
         return StoriesRepositoryImpl(
             createDataBase(context.applicationContext),
-            RetrofitConfig.storyApiService
+            ApiConfig.storyApiService
         )
     }
 

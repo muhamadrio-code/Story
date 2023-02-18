@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitConfig {
+object ApiConfig {
 
     var BASE_URL = BuildConfig.BASE_URL
 

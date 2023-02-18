@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.riopermana.story.R
-import com.riopermana.story.data.remote.RetrofitConfig
+import com.riopermana.story.data.remote.ApiConfig
 import com.riopermana.story.model.User
 import com.riopermana.story.ui.BaseViewModel
 import com.riopermana.story.ui.auth.login.LoginResponse
@@ -12,7 +12,7 @@ import com.riopermana.story.ui.utils.ErrorMessageRes
 import kotlinx.coroutines.launch
 
 class AuthViewModel : BaseViewModel() {
-    private val storyApi = RetrofitConfig.storyApiService
+    private val storyApi = ApiConfig.storyApiService
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse : LiveData<LoginResponse> = _loginResponse

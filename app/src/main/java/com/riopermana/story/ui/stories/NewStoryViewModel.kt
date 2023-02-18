@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.riopermana.story.R
-import com.riopermana.story.data.remote.RetrofitConfig
+import com.riopermana.story.data.remote.ApiConfig
 import com.riopermana.story.ui.BaseViewModel
 import com.riopermana.story.ui.utils.ErrorMessageRes
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class NewStoryViewModel : BaseViewModel() {
-    private val storyApi = RetrofitConfig.storyApiService
+    private val storyApi = ApiConfig.storyApiService
 
     private val _observableUploadResponse = MutableLiveData<Boolean>()
     val observableUploadResponse: LiveData<Boolean> = _observableUploadResponse
