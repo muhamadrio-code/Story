@@ -61,6 +61,7 @@ class StoryPagingAdapter : PagingDataAdapter<Story, StoryPagingAdapter.StoryView
                     error(R.drawable.ic_broken_image)
                     target(
                         onStart = {
+                            ivItemPhoto.setImageDrawable(null)
                             progressCircular.isVisible = true
                         },
                         onError = {
@@ -96,7 +97,6 @@ class StoryPagingAdapter : PagingDataAdapter<Story, StoryPagingAdapter.StoryView
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
         val item = getItem(position)
-
         if (item != null) {
             holder.bind(item)
         }
