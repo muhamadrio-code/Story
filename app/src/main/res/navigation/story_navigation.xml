@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/main_navigation"
-  app:startDestination="@id/story_dashboard_nav">
+  app:startDestination="@id/storiesFragment">
 
   <fragment
     android:id="@+id/newStoryFragment"
@@ -18,34 +18,31 @@
       android:name="story"
       app:argType="com.riopermana.story.model.Story" />
   </fragment>
-  <navigation android:id="@+id/story_dashboard_nav"
-    app:startDestination="@id/storiesFragment">
-    <fragment
-      android:id="@+id/mapsFragment"
-      android:name="com.riopermana.story.ui.maps.MapsFragment"
-      android:label="MapsFragment" />
-    <fragment
-      android:id="@+id/storiesFragment"
-      android:name="com.riopermana.story.ui.stories.StoriesFragment"
-      android:label="fragment_stories"
-      tools:layout="@layout/fragment_stories">
-      <action
-        android:id="@+id/action_storiesFragment_to_newStoryFragment"
-        app:destination="@id/newStoryFragment"
-        app:enterAnim="@anim/from_right_anim"
-        app:exitAnim="@anim/to_right_anim"
-        app:popEnterAnim="@anim/from_right_anim"
-        app:popExitAnim="@anim/to_right_anim" />
-      <action
-        android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
-        app:destination="@id/storyDetailsFragment"
-        app:enterAnim="@anim/from_right_anim"
-        app:exitAnim="@anim/to_right_anim"
-        app:popEnterAnim="@anim/from_right_anim"
-        app:popExitAnim="@anim/to_right_anim" />
-      <action
-        android:id="@+id/action_storiesFragment_to_mapsFragment"
-        app:destination="@id/mapsFragment" />
-    </fragment>
-  </navigation>
+  <fragment
+    android:id="@+id/mapsFragment"
+    android:name="com.riopermana.story.ui.maps.MapsFragment"
+    android:label="MapsFragment" />
+  <fragment
+    android:id="@+id/storiesFragment"
+    android:name="com.riopermana.story.ui.stories.StoriesFragment"
+    android:label="fragment_stories"
+    tools:layout="@layout/fragment_stories">
+    <action
+      android:id="@+id/action_storiesFragment_to_newStoryFragment"
+      app:destination="@id/newStoryFragment"
+      app:enterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_right_anim"
+      app:popEnterAnim="@anim/from_right_anim"
+      app:popExitAnim="@anim/to_right_anim" />
+    <action
+      android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
+      app:destination="@id/storyDetailsFragment"
+      app:enterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_right_anim"
+      app:popEnterAnim="@anim/from_right_anim"
+      app:popExitAnim="@anim/to_right_anim" />
+    <action
+      android:id="@+id/action_storiesFragment_to_mapsFragment"
+      app:destination="@id/mapsFragment" />
+  </fragment>
 </navigation>

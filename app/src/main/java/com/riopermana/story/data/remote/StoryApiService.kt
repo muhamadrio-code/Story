@@ -32,6 +32,11 @@ interface StoryApiService {
         @Query("size") size: Int
     ): Response<StoriesResponse>
 
+    @GET("v1/stories?location=1")
+    suspend fun getStories(
+        @Header("Authorization") authorization: String
+    ): Response<StoriesResponse>
+
     @Multipart
     @POST("v1/stories")
     suspend fun uploadFile(

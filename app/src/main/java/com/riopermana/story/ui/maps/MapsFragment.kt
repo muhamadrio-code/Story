@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.navGraphViewModels
-import androidx.paging.AsyncPagingDataDiffer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,19 +28,14 @@ import com.riopermana.story.databinding.FragmentMapsBinding
 import com.riopermana.story.di.storyRepository
 import com.riopermana.story.model.Story
 import com.riopermana.story.ui.ViewModelFactory
-import com.riopermana.story.ui.adapters.StoryPagingAdapter
-import com.riopermana.story.ui.stories.StoriesViewModel
-import com.riopermana.story.utils.noopListUpdateCallback
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.riopermana.story.utils.showToast
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding: FragmentMapsBinding get() = _binding!!
 
-    private val viewModel: StoriesViewModel by navGraphViewModels(
-        navGraphId = R.id.story_dashboard_nav,
+    private val viewModel: MapsViewModel by viewModels(
         factoryProducer = {
             ViewModelFactory((requireActivity().applicationContext as Application).storyRepository)
         }
@@ -93,6 +88,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             val position = LatLng(lat, lon)
             val markerOptions = MarkerOptions().position(position).title(name).snippet(description)
             val marker = mMap.addMarker(markerOptions)
+
             marker?.let {
                 val markerIcon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_pin_location)
@@ -100,26 +96,28 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     it.setIcon(BitmapDescriptorFactory.fromBitmap(icon.toBitmap()))
                 }
             }
+            marker?.showInfoWindow()
         }
     }
 
     private fun subscribeObserver() {
-        viewModel.stories.observe(viewLifecycleOwner) { pagingData ->
-            lifecycleScope.launch {
-                val differ = AsyncPagingDataDiffer(
-                    diffCallback = StoryPagingAdapter.StoryDiffUtil(),
-                    updateCallback = noopListUpdateCallback,
-                    workerDispatcher = Dispatchers.Default,
-                )
+        viewModel.stories.observe(viewLifecycleOwner) { stories ->
+            Log.d("TAG", "stories::${stories.size}")
 
-                differ.submitData(pagingData)
-                val items = differ.snapshot().items
-                items.forEach {
-                    setupMarker(it)
-                }
-                val firstItemLatLng = LatLng(items[0].lat ?: 0.0, items[0].lon ?: 0.0)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstItemLatLng, 5f))
+            if (stories.isEmpty()) {
+                requireContext().showToast(R.string.no_data)
+                return@observe
             }
+
+            val indoLatLng = LatLng(0.7893, 113.9213)
+            stories.forEach {
+                setupMarker(it)
+            }
+            val firstItemLatLng = LatLng(
+                stories[0].lat ?: indoLatLng.latitude,
+                stories[0].lon ?: indoLatLng.longitude
+            )
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstItemLatLng, 5f))
         }
 
         lifecycleScope.launchWhenCreated {

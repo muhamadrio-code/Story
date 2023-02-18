@@ -5,6 +5,8 @@ import androidx.paging.PagingData
 import com.riopermana.story.model.Story
 
 interface StoryRepository {
-    fun getStories(auth:String) : LiveData<PagingData<Story>>
+
+    suspend fun getStories(auth: String): LiveData<List<Story>>
+    fun getStoriesWithPaging(auth: String): LiveData<PagingData<Story>>
 
 }

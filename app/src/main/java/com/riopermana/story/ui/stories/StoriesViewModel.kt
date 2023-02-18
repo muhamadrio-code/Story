@@ -15,7 +15,7 @@ class StoriesViewModel(private val storyRepository: StoryRepository) : BaseViewM
 
     private val _stories = MutableLiveData<String>()
     val stories: LiveData<PagingData<Story>> = _stories.switchMap { auth ->
-        storyRepository.getStories("Bearer $auth").cachedIn(viewModelScope)
+        storyRepository.getStoriesWithPaging(auth).cachedIn(viewModelScope)
     }
 
     private val _fabsInvisibility = MutableLiveData<Boolean>()
