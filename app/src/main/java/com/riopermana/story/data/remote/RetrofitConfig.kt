@@ -8,8 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitConfig {
 
+    var BASE_URL = BuildConfig.BASE_URL
+
     private val client = OkHttpClient.Builder().apply {
-        val loggingInterceptor = if(BuildConfig.DEBUG) {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         } else {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
@@ -19,7 +21,7 @@ object RetrofitConfig {
 
     private val instance: retrofit2.Retrofit by lazy {
         retrofit2.Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(
                 GsonConverterFactory.create(
                 GsonBuilder().serializeNulls().create()

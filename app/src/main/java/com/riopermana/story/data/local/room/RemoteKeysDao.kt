@@ -7,9 +7,6 @@ import com.riopermana.story.model.RemoteKey
 interface RemoteKeysDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRemoteKey(remoteKey: RemoteKey)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRemoteKeys(remoteKeys: List<RemoteKey>)
 
     @Query("SELECT * FROM remote_keys WHERE id = :id")
@@ -17,4 +14,5 @@ interface RemoteKeysDao {
 
     @Query("DELETE FROM remote_keys")
     suspend fun clearRemoteKeys()
+
 }

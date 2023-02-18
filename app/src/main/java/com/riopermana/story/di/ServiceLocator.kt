@@ -6,7 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.room.Room
 import com.riopermana.story.data.local.room.StoryDatabase
 import com.riopermana.story.data.remote.RetrofitConfig
-import com.riopermana.story.repositories.StoryRepositoryImpl
+import com.riopermana.story.repositories.StoriesRepositoryImpl
 
 val Application.storyRepository get() = ServiceLocator.provideTasksRepository(this)
 
@@ -16,10 +16,10 @@ object ServiceLocator {
     private var database: StoryDatabase? = null
 
     @Volatile
-    var tasksRepository: StoryRepositoryImpl? = null
+    var tasksRepository: StoriesRepositoryImpl? = null
         @VisibleForTesting set
 
-    fun provideTasksRepository(context: Context): StoryRepositoryImpl {
+    fun provideTasksRepository(context: Context): StoriesRepositoryImpl {
         synchronized(this) {
             return tasksRepository ?: run {
                 val repo = createStoryRepository(context)
@@ -29,8 +29,8 @@ object ServiceLocator {
         }
     }
 
-    private fun createStoryRepository(context: Context) : StoryRepositoryImpl {
-        return StoryRepositoryImpl(
+    private fun createStoryRepository(context: Context): StoriesRepositoryImpl {
+        return StoriesRepositoryImpl(
             createDataBase(context.applicationContext),
             RetrofitConfig.storyApiService
         )
