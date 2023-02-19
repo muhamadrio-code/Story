@@ -1,7 +1,6 @@
 package com.riopermana.story.ui.stories
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
@@ -34,48 +33,17 @@ class StoryDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoryDetailsBinding.inflate(inflater, container, false)
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
-        requireActivity().window.statusBarColor = Color.TRANSPARENT
+        setupListener()
+        observeStory()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        ViewCompat.setOnApplyWindowInsetsListener(
-            requireView()
-        ) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updatePadding(0, insets.top, 0, 0)
-            WindowInsetsCompat.CONSUMED
-
-        }
-        setupListener()
-        observeStory()
-    }
-
-    private fun showUi(visible: Boolean) {
-        with(binding) {
-            topBar.isVisible = visible
-            tvDetailDescription.isVisible = visible
-        }
-    }
-
-    private val isUiVisible: Boolean
-        get() = with(binding) {
-            topBar.isVisible && tvDetailDescription.isVisible
-        }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun setupListener() {
-        binding.apply {
-            ivDetailPhoto.setOnClickListener {
-                showUi(!isUiVisible)
-            }
-
-            ibActionBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
+        binding.ibActionBack.setOnClickListener {
+            findNavController().popBackStack()
         }
+
     }
 
     private fun observeStory() {
@@ -84,7 +52,10 @@ class StoryDetailsFragment : Fragment() {
                 with(story) {
                     setDetailPhoto(photoUrl)
                     tvDetailName.text = name
-                    tvDetailDescription.text = description
+                    tvDetailDescription.isVisible = description.isNotEmpty().also {
+                        if (it) tvDetailDescription.text = description
+                    }
+
                 }
             }
         }

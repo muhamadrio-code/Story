@@ -31,18 +31,22 @@
       android:id="@+id/action_storiesFragment_to_newStoryFragment"
       app:destination="@id/newStoryFragment"
       app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_left_anim"
+      app:popEnterAnim="@anim/from_left_anim"
       app:popExitAnim="@anim/to_right_anim" />
     <action
       android:id="@+id/action_storiesFragment_to_storyDetailsFragment"
       app:destination="@id/storyDetailsFragment"
       app:enterAnim="@anim/from_right_anim"
-      app:exitAnim="@anim/to_right_anim"
-      app:popEnterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_left_anim"
+      app:popEnterAnim="@anim/from_left_anim"
       app:popExitAnim="@anim/to_right_anim" />
     <action
       android:id="@+id/action_storiesFragment_to_mapsFragment"
-      app:destination="@id/mapsFragment" />
+      app:destination="@id/mapsFragment"
+      app:enterAnim="@anim/from_right_anim"
+      app:exitAnim="@anim/to_left_anim"
+      app:popEnterAnim="@anim/from_left_anim"
+      app:popExitAnim="@anim/to_right_anim" />
   </fragment>
 </navigation>
