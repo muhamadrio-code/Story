@@ -25,7 +25,7 @@ interface StoryApiService {
         @Field("password") password: String
     ): Response<LoginResponse>
 
-    @GET("v1/stories?location=1")
+    @GET("v1/stories")
     suspend fun getStories(
         @Header("Authorization") authorization: String,
         @Query("page") page: Int,
@@ -33,7 +33,7 @@ interface StoryApiService {
     ): Response<StoriesResponse>
 
     @GET("v1/stories?location=1")
-    suspend fun getStories(
+    suspend fun getStoriesWithLocation(
         @Header("Authorization") authorization: String
     ): Response<StoriesResponse>
 

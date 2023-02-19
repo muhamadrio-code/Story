@@ -55,7 +55,7 @@ class StoriesViewModelTest {
     }
 
     @Test
-    fun `when get stories validate data size and return data`() = runTest {
+    fun `when get stories verify data size and return data`() = runTest {
         val dummyData = StoryDataDummy.generateDummyStoryResponse(false)
         fakeStoryRepository.setDummyStoriesResponse(dummyData)
 
@@ -91,7 +91,7 @@ class StoriesViewModelTest {
     }
 
     @Test
-    fun `when get stories validate data size is zero and return no data`() = runTest {
+    fun `when failed get stories then verify data size is zero and return no data`() = runTest {
         val dummyData = StoryDataDummy.generateDummyStoryResponse(true)
         fakeStoryRepository.setDummyStoriesResponse(dummyData)
 

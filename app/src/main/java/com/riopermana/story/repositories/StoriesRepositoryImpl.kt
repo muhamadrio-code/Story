@@ -15,7 +15,7 @@ class StoriesRepositoryImpl(
 
     override suspend fun getStories(auth: String): LiveData<List<Story>> {
         val response = runCatching {
-            storyApiService.getStories("Bearer $auth")
+            storyApiService.getStoriesWithLocation("Bearer $auth")
         }.getOrNull()
         val stories = response?.body()?.stories ?: emptyList()
         return liveData {

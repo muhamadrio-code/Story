@@ -62,10 +62,8 @@ abstract class BaseAuthFragment : Fragment() {
 
         if (!loginResponse.error) {
             lifecycleScope.launch {
-                EspressoIdlingResource.increment()
                 DataStoreUtil.saveToken(requireContext(), loginResponse.loginResult!!.token)
                 withContext(Dispatchers.Main.immediate) {
-                    EspressoIdlingResource.decrement()
                     viewModel.requestUpdateUIState()
                 }
             }

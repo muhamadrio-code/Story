@@ -19,7 +19,7 @@ val timeStamp: String = SimpleDateFormat(
 
 fun createCustomFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File(storageDir, "$timeStamp.jpg")
+    return File.createTempFile("story_", "$timeStamp.jpg", storageDir)
 }
 
 
