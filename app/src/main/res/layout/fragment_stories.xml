@@ -18,8 +18,8 @@
       android:layout_height="?attr/actionBarSize"
       app:layout_scrollFlags="scroll|enterAlways|snap"
       app:menu="@menu/main_menu"
-      app:title="@string/app_name" />
-
+      app:title="@string/app_name"
+      app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
     <com.google.android.material.divider.MaterialDivider
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />

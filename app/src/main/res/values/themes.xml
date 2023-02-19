@@ -1,4 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="splashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/story_logo_text_opt</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">true</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="MainAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
