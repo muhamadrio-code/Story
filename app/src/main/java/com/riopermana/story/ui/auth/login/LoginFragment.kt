@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.riopermana.story.R
 import com.riopermana.story.databinding.FragmentLoginBinding
 import com.riopermana.story.ui.auth.BaseAuthFragment
-import com.riopermana.story.utils.showToast
 
 class LoginFragment : BaseAuthFragment() {
 
@@ -56,7 +56,7 @@ class LoginFragment : BaseAuthFragment() {
             if (isEmailValid && isPasswordValid) {
                 viewModel.login(email, password)
             } else {
-                requireContext().showToast(R.string.sign_in_warn)
+                Toast.makeText(requireContext(), R.string.sign_in_warn, Toast.LENGTH_LONG).show()
             }
         }
     }

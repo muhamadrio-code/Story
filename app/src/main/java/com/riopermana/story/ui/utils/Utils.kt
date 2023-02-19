@@ -17,20 +17,22 @@ val timeStamp: String = SimpleDateFormat(
     Locale.US
 ).format(System.currentTimeMillis())
 
-fun createCustomTempFile(context: Context): File {
+fun createCustomFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File.createTempFile(timeStamp, ".jpg", storageDir)
+    return File(storageDir, "$timeStamp.jpg")
 }
+
 
 fun uriToFile(selectedImg: Uri, context: Context): File {
     val contentResolver: ContentResolver = context.contentResolver
-    val myFile = createCustomTempFile(context)
+    val myFile = createCustomFile(context)
 
     val inputStream = contentResolver.openInputStream(selectedImg) as InputStream
     val outputStream: OutputStream = FileOutputStream(myFile)
-    val buf = ByteArray(1024)
+    val buf = ByteArray(4 * 1024)
     var len: Int
     while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
+    outputStream.flush()
     outputStream.close()
     inputStream.close()
 
@@ -38,7 +40,7 @@ fun uriToFile(selectedImg: Uri, context: Context): File {
 }
 
 fun reduceFileImage(file: File): File {
-    val bitmap = BitmapFactory.decodeFile(file.path)
+    val bitmap = BitmapFactory.decodeFile(file.path) ?: return file
 
     var compressQuality = 100
     var streamLength: Int

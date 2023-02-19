@@ -100,13 +100,31 @@ dependencies {
 
     // Unit test
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0-alpha01' // InstantTaskExecutorRule
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    //TestDispatcher
-    debugImplementation 'androidx.fragment:fragment-testing:1.5.0' //launchFragmentInContainer
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
-    // Android test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
+    //TestDispatcher
+    debugImplementation 'androidx.fragment:fragment-testing:1.5.5' //launchFragmentInContainer
+
+    // AndroidX test
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
     debugImplementation "androidx.test:monitor:1.6.1"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0' // InstantTaskExecutorRule
+
+    def androidx_test_espresso = "3.5.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$androidx_test_espresso"
+
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
+    androidTestImplementation "com.squareup.okhttp3:okhttp-tls:4.9.3"
+
+
+    // idling resource
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 }

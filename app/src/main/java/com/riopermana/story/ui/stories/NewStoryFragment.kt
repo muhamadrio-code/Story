@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -31,7 +32,7 @@ import com.riopermana.story.data.local.settingsDataStore
 import com.riopermana.story.databinding.FragmentNewStoryBinding
 import com.riopermana.story.ui.dialogs.LoadingDialog
 import com.riopermana.story.ui.utils.*
-import com.riopermana.story.utils.showToast
+import com.riopermana.story.utils.EspressoIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -115,6 +116,7 @@ class NewStoryFragment : Fragment() {
     private fun setupListener() {
         binding.apply {
             addImageGallery.setOnClickListener {
+                EspressoIdlingResource.increment()
                 startGallery()
             }
 
@@ -142,7 +144,7 @@ class NewStoryFragment : Fragment() {
                 }
             }
 
-            buttonAdd.setOnClickListener {
+            btnUpload.setOnClickListener {
                 if (viewModel.currentUri == null) {
                     val dialog = AlertDialog.Builder(requireContext())
                         .setMessage(R.string.upload_warning)
@@ -152,6 +154,7 @@ class NewStoryFragment : Fragment() {
                         .create()
                     dialog.show()
                 } else {
+                    EspressoIdlingResource.increment()
                     uploadImage()
                 }
             }
@@ -172,7 +175,6 @@ class NewStoryFragment : Fragment() {
         viewModel.apply {
             observableUploadResponse.observe(viewLifecycleOwner) { isSuccess ->
                 if (isSuccess) {
-                    requireContext().showToast(R.string.upload_success)
                     findNavController().popBackStack()
                 }
             }
@@ -193,17 +195,28 @@ class NewStoryFragment : Fragment() {
             }
 
             observableUri.observe(viewLifecycleOwner) { uri ->
-                uri?.let {
-                    binding.ivStoryImage.load(uri) {
-                        placeholder(R.drawable.ic_image)
+                uri ?: return@observe
+                binding.ivStoryImage.apply {
+                    load(uri) {
+                        target(
+                            onStart = {
+                                EspressoIdlingResource.increment()
+                                setImageDrawable(null)
+                            },
+                            onSuccess = {
+                                setImageDrawable(it)
+                                EspressoIdlingResource.decrement()
+                            }
+                        )
                     }
+                    EspressoIdlingResource.decrement()
                 }
             }
         }
     }
 
     private fun showError(errorMessageRes: ErrorMessageRes) {
-        requireContext().showToast(errorMessageRes.resId)
+        Toast.makeText(requireContext(), errorMessageRes.resId, Toast.LENGTH_LONG).show()
     }
 
     private fun showLoading() {
@@ -236,7 +249,11 @@ class NewStoryFragment : Fragment() {
                 if (isGranted) {
                     openCamera()
                 } else {
-                    requireContext().showToast(R.string.camera_permission_denied)
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.camera_permission_denied,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -244,7 +261,11 @@ class NewStoryFragment : Fragment() {
                 if (isGranted) {
                     createLocationRequest()
                 } else {
-                    requireContext().showToast(R.string.camera_permission_denied)
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.camera_permission_denied,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -265,7 +286,7 @@ class NewStoryFragment : Fragment() {
     }
 
     private fun createUri(): Uri {
-        val file = createCustomTempFile(requireContext())
+        val file = createCustomFile(requireContext())
         return FileProvider.getUriForFile(
             requireActivity().applicationContext,
             "com.riopermana.story.fileProvider",
@@ -301,6 +322,7 @@ class NewStoryFragment : Fragment() {
                     ?.get(PreferencesKeys.TOKEN_KEY)
                 auth?.let {
                     viewModel.uploadFile(imageMultipart, description, auth)
+                    EspressoIdlingResource.decrement()
                 }
             }
         }
