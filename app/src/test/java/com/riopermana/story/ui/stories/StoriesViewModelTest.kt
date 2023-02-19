@@ -37,7 +37,7 @@ class StoriesViewModelTest {
     }
 
     @Test
-    fun `when get stories should not null and return data`() = runTest {
+    fun `when get stories success then return data`() = runTest {
         val dummyData = StoryDataDummy.generateDummyStoryResponse(false)
         fakeStoryRepository.setDummyStoriesResponse(dummyData)
 
@@ -52,42 +52,8 @@ class StoriesViewModelTest {
 
         differ.submitData(actualStory)
         assertNotNull(differ.snapshot())
-    }
-
-    @Test
-    fun `when get stories verify data size and return data`() = runTest {
-        val dummyData = StoryDataDummy.generateDummyStoryResponse(false)
-        fakeStoryRepository.setDummyStoriesResponse(dummyData)
-
-        storiesViewModel.getStories("auth-key")
-        val actualStory: PagingData<Story> = storiesViewModel.stories.getOrAwaitValue()
-
-        val differ = AsyncPagingDataDiffer(
-            diffCallback = StoryPagingAdapter.StoryDiffUtil(),
-            updateCallback = noopListUpdateCallback,
-            workerDispatcher = Dispatchers.Main,
-        )
-
-        differ.submitData(actualStory)
-        assertEquals(differ.snapshot().size, dummyData.stories.size)
-    }
-
-    @Test
-    fun `when get stories validate first data and return data`() = runTest {
-        val dummyData = StoryDataDummy.generateDummyStoryResponse(false)
-        fakeStoryRepository.setDummyStoriesResponse(dummyData)
-
-        storiesViewModel.getStories("auth-key")
-        val actualStory: PagingData<Story> = storiesViewModel.stories.getOrAwaitValue()
-
-        val differ = AsyncPagingDataDiffer(
-            diffCallback = StoryPagingAdapter.StoryDiffUtil(),
-            updateCallback = noopListUpdateCallback,
-            workerDispatcher = Dispatchers.Main,
-        )
-
-        differ.submitData(actualStory)
-        assertEquals(differ.snapshot().items[0], dummyData.stories[0])
+        assertEquals(dummyData.stories.size, differ.snapshot().size)
+        assertEquals(dummyData.stories[0], differ.snapshot().items[0])
     }
 
     @Test
@@ -105,6 +71,6 @@ class StoriesViewModelTest {
         )
 
         differ.submitData(actualStory)
-        assertEquals(differ.snapshot().size, dummyData.stories.size)
+        assertEquals(0, differ.snapshot().items.size)
     }
 }
